@@ -152,8 +152,8 @@
                                 <div class="slds-col slds-size_1-of-2">
                                     <!-- loop fields from custom metadata -->
                                     <template for:each={fieldInvoiceLeft} for:item="fieldIVL">
-                                        <div key={fieldIVL}>
-                                            <lightning-input-field field-name={fieldIVL}></lightning-input-field>
+                                        <div key={fieldIVL.apiName}>
+                                            <lightning-input-field field-name={fieldIVL.apiName}></lightning-input-field>
                                         </div>
                                     </template>
                                 </div>
@@ -162,8 +162,8 @@
                                         <!-- loop fields from custom metadata -->
                                         <template for:each={fieldInvoiceRight} for:item="fieldIVR">
                                         <!-- wrap colums in right side -->
-                                            <div key={fieldIVR} class="slds-grid slds-wrap">
-                                                <lightning-input-field field-name={fieldIVR}></lightning-input-field>
+                                            <div key={fieldIVR.apiName} class="slds-grid slds-wrap">
+                                                <lightning-input-field field-name={fieldIVR.apiName}></lightning-input-field>
                                             </div>
                                         </template>
                                 </div>
@@ -191,8 +191,8 @@
                             <div class="slds-col slds-size_1-of-2">
                                 <!-- loop fields from custom metadata -->
                                 <template for:each={fieldWFLeft} for:item="fieldWFL">
-                                    <div key={fieldWFL} class="">
-                                        <lightning-input-field field-name={fieldWFL}></lightning-input-field>
+                                    <div key={fieldWFL.apiName} class="">
+                                        <lightning-input-field field-name={fieldWFL.apiName}></lightning-input-field>
                                     </div>
                                 </template>
                             </div>
@@ -201,8 +201,8 @@
                                     <!-- loop fields from custom metadata -->
                                     <template for:each={fieldWFRight} for:item="fieldWFR">
                                     <!-- wrap colums in right side -->
-                                        <div key={fieldWFR} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldWFR}></lightning-input-field>
+                                        <div key={fieldWFR.apiName} class="slds-grid slds-wrap">
+                                            <lightning-input-field field-name={fieldWFR.apiName}></lightning-input-field>
                                         </div>
                                     </template>
                             </div>
@@ -232,8 +232,8 @@
                             <div class="slds-col slds-size_1-of-2">
                                 <!-- loop fields from custom metadata -->
                                 <template for:each={fieldBoxLeft} for:item="fieldBXL">
-                                    <div key={fieldBXL}>
-                                        <lightning-input-field field-name={fieldBXL}></lightning-input-field>
+                                    <div key={fieldBXL.apiName}>
+                                        <lightning-input-field field-name={fieldBXL.apiName}></lightning-input-field>
                                     </div>
                                 </template>
                             </div>
@@ -242,8 +242,8 @@
                                     <!-- loop fields from custom metadata -->
                                     <template for:each={fieldBoxRight} for:item="fieldBXR">
                                     <!-- wrap colums in right side -->
-                                        <div key={fieldBXR} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldBXR}></lightning-input-field>
+                                        <div key={fieldBXR.apiName} class="slds-grid slds-wrap">
+                                            <lightning-input-field field-name={fieldBXR.apiName}></lightning-input-field>
                                         </div>
                                     </template>
                             </div>
@@ -272,8 +272,8 @@
                             <div class="slds-col slds-size_1-of-2">
                                 <!-- loop fields from custom metadata -->
                                 <template for:each={fieldCardLeft} for:item="fieldCDL">
-                                    <div key={fieldCDL}>
-                                        <lightning-input-field field-name={fieldCDL}></lightning-input-field>
+                                    <div key={fieldCDL.apiName}>
+                                        <lightning-input-field field-name={fieldCDL.apiName}></lightning-input-field>
                                     </div>
                                 </template>
                             </div>
@@ -304,8 +304,8 @@
                             <div class="slds-col slds-size_1-of-2">
                                 <!-- loop fields from custom metadata -->
                                 <template for:each={fieldDocissueLeft} for:item="fieldDIL">
-                                <div key={fieldDIL}>
-                                    <lightning-input-field field-name={fieldDIL}></lightning-input-field>
+                                <div key={fieldDIL.apiName}>
+                                    <lightning-input-field field-name={fieldDIL.apiName}></lightning-input-field>
                                 </div>
                             </template>
                             </div>
@@ -314,8 +314,8 @@
                                     <!-- loop fields from custom metadata -->
                                     <template for:each={fieldDocissueRight} for:item="fieldDIR">
                                     <!-- wrap colums in right side -->
-                                        <div key={fieldDIR} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldDIR}></lightning-input-field>
+                                        <div key={fieldDIR.apiName} class="slds-grid slds-wrap">
+                                            <lightning-input-field field-name={fieldDIR.apiName}></lightning-input-field>
                                         </div>
                                     </template>
                             </div>
@@ -344,8 +344,8 @@
                             <div class="slds-col slds-size_1-of-2">
                                 <!-- loop fields from custom metadata -->
                                 <template for:each={fieldAPILeftt} for:item="fieldAPIL">
-                                    <div key={fieldAPIL}>
-                                        <lightning-input-field field-name={fieldAPIL}></lightning-input-field>
+                                    <div key={fieldAPIL.apiName}>
+                                        <lightning-input-field field-name={fieldAPIL.apiName}></lightning-input-field>
                                     </div>
                                 </template>
                             </div>
@@ -354,8 +354,8 @@
                                     <!-- loop fields from custom metadata -->
                                     <template for:each={fieldAPIRight} for:item="fieldAPIR">
                                     <!-- wrap colums in right side -->
-                                        <div key={fieldAPIR} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldAPIR}></lightning-input-field>
+                                        <div key={fieldAPIR.apiName} class="slds-grid slds-wrap">
+                                            <lightning-input-field field-name={fieldAPIR.apiName}></lightning-input-field>
                                         </div>
                                     </template>
                             </div>
@@ -384,8 +384,8 @@
                             <div class="slds-col slds-size_1-of-2">
                                 <!-- loop fields from custom metadata -->
                                 <template for:each={fieldAttendanceLeft} for:item="fieldADL">
-                                    <div key={fieldADL}>
-                                        <lightning-input-field field-name={fieldADL}></lightning-input-field>
+                                    <div key={fieldADL.apiName}>
+                                        <lightning-input-field field-name={fieldADL.apiName}></lightning-input-field>
                                     </div>
                                 </template>
                             </div>
@@ -394,8 +394,8 @@
                                     <!-- loop fields from custom metadata -->
                                     <template for:each={fieldAttendanceRight} for:item="fieldADR">
                                     <!-- wrap colums in right side -->
-                                        <div key={fieldADRR} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldADR}></lightning-input-field>
+                                        <div key={fieldADRR.apiName} class="slds-grid slds-wrap">
+                                            <lightning-input-field field-name={fieldADR.apiName}></lightning-input-field>
                                         </div>
                                     </template>
                             </div>
@@ -425,8 +425,8 @@
                             <div class="slds-col slds-size_1-of-2">
                                 <!-- loop fields from custom metadata -->
                                 <template for:each={fieldBpoDocLeft} for:item="fieldBpoDocL">
-                                    <div key={fieldBpoDocL}>
-                                        <lightning-input-field field-name={fieldBpoDocL}></lightning-input-field>
+                                    <div key={fieldBpoDocL.apiName}>
+                                        <lightning-input-field field-name={fieldBpoDocL.apiName}></lightning-input-field>
                                     </div>
                                 </template>
                             </div>
@@ -435,8 +435,8 @@
                                     <!-- loop fields from custom metadata -->
                                     <template for:each={fieldBpoDocRight} for:item="fieldBpoDocR">
                                     <!-- wrap colums in right side -->
-                                        <div key={fieldBpoDocR} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldBpoDocR}></lightning-input-field>
+                                        <div key={fieldBpoDocR.apiName} class="slds-grid slds-wrap">
+                                            <lightning-input-field field-name={fieldBpoDocR.apiName}></lightning-input-field>
                                         </div>
                                     </template>
                             </div>
@@ -466,8 +466,8 @@
                             <div class="slds-col slds-size_1-of-2">
                                 <!-- loop fields from custom metadata -->
                                 <template for:each={fieldOptionLeft} for:item="fieldOPL">
-                                    <div key={fieldOPL}>
-                                        <lightning-input-field field-name={fieldOPL}></lightning-input-field>
+                                    <div key={fieldOPL.apiName}>
+                                        <lightning-input-field field-name={fieldOPL.apiName}></lightning-input-field>
                                     </div>
                                 </template>
                             </div>
@@ -476,8 +476,8 @@
                                     <!-- loop fields from custom metadata -->
                                     <template for:each={fieldOptionRight} for:item="fieldOPR">
                                     <!-- wrap colums in right side -->
-                                        <div key={fieldOPR} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldOPR}></lightning-input-field>
+                                        <div key={fieldOPR.apiName} class="slds-grid slds-wrap">
+                                            <lightning-input-field field-name={fieldOPR.apiName}></lightning-input-field>
                                         </div>
                                     </template>
                             </div>
@@ -534,9 +534,41 @@
                             <!-- loop fields from custom metadata -->
                             <template for:each={fieldInvoiceLeft} for:item="fieldIVL">
                                 <div key={fieldIVL.apiName}>
-                                    <lightning-input 
-                                    name={fieldIVL.apiName}
-                                    ></lightning-input>
+                                    <!-- is CHeckbox --> <!-- var_TenantRequest.fieldIVL.apiName -->
+                                    <template if:true={fieldIVL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldIVL.type}
+                                        name={fieldIVL.apiName}
+                                        label={fieldIVL.label}
+                                        checked={fieldIVL.value}
+                                        onchange={handleChangeInvoiceLeft}
+                                        ></lightning-input>
+                                    </template>
+                                    
+                                    <!-- not Checkbox -->
+                                    <template if:false={fieldIVL.isCheckboxField}>
+                                        <!-- not Picklist -->
+                                        <template if:false={fieldIVL.isPicklistField}>
+                                            <lightning-input 
+                                            type={fieldIVL.type}
+                                            name={fieldIVL.apiName}
+                                            label={fieldIVL.label}
+                                            value={fieldIVL.value}
+                                            onchange={handleChangeInvoiceLeft}
+                                            ></lightning-input>
+                                        </template>
+                                        <!-- if picklist -->
+                                        <template if:true={fieldIVL.isPicklistField}>
+                                            <lightning-combobox
+                                            name={fieldIVL.apiName}
+                                            label={fieldIVL.label}
+                                            value={fieldIVL.value}
+                                            options={fieldIVL.options}   
+                                            onchange={handleChangeInvoiceLeft}
+                                            ></lightning-combobox>
+                                        </template>
+                                    </template>
+                                    
                                 </div>
                             </template>
                         </div>
@@ -546,7 +578,39 @@
                                 <template for:each={fieldInvoiceRight} for:item="fieldIVR">
                                 <!-- wrap colums in right side -->
                                     <div key={fieldIVR} class="slds-grid slds-wrap">
-                                        <lightning-input-field field-name={fieldIVR}></lightning-input-field>
+                                        <!-- is CHeckbox -->
+                                        <template if:true={fieldIVR.isCheckboxField}>
+                                            <lightning-input 
+                                            type={fieldIVR.type}
+                                            name={fieldIVR.apiName}
+                                            label={fieldIVR.label}
+                                            checked={fieldIVR.value}
+                                            onchange={handleChangeInvoiceRight}
+                                            ></lightning-input>
+                                        </template>
+                                        <!-- not Checkbox -->
+                                        <template if:false={fieldIVR.isCheckboxField}>
+                                            <!-- not Picklist -->
+                                            <template if:false={fieldIVR.isPicklistField}>
+                                                <lightning-input 
+                                                type={fieldIVR.type}
+                                                name={fieldIVR.apiName}
+                                                label={fieldIVR.label}
+                                                value={fieldIVR.value}
+                                                onchange={handleChangeInvoiceRight}
+                                                ></lightning-input>
+                                            </template>
+                                            <!-- if picklist -->
+                                            <template if:true={fieldIVR.isPicklistField}>
+                                                <lightning-combobox
+                                                name={fieldIVR.apiName}
+                                                label={fieldIVR.label}
+                                                value={fieldIVR.value}
+                                                options={fieldIVR.options}   
+                                                onchange={handleChangeInvoiceRight}
+                                                ></lightning-combobox>
+                                            </template>
+                                        </template>
                                     </div>
                                 </template>
                         </div>
@@ -575,7 +639,26 @@
                             <!-- loop fields from custom metadata -->
                             <template for:each={fieldWFLeft} for:item="fieldWFL">
                                 <div key={fieldWFL} class="">
-                                    <lightning-input-field field-name={fieldWFL}></lightning-input-field>
+                                     <!-- is CHeckbox -->
+                                        <template if:true={fieldWFL.isCheckboxField}>
+                                            <lightning-input 
+                                            type={fieldWFL.type}
+                                            name={fieldWFL.apiName}
+                                            label={fieldWFL.label}
+                                            checked={fieldWFL.value}
+                                            onchange={handleChangeWFLeft}
+                                            ></lightning-input>
+                                        </template>
+                                        <!-- not Checkbox -->
+                                        <template if:false={fieldWFL.isCheckboxField}>
+                                            <lightning-input 
+                                            type={fieldWFL.type}
+                                            name={fieldWFL.apiName}
+                                            label={fieldWFL.label}
+                                            value={fieldWFL.value}
+                                            onchange={handleChangeWFLeft}
+                                            ></lightning-input>
+                                        </template>
                                 </div>
                             </template>
                         </div>
@@ -585,7 +668,39 @@
                                 <template for:each={fieldWFRight} for:item="fieldWFR">
                                 <!-- wrap colums in right side -->
                                     <div key={fieldWFR} class="slds-grid slds-wrap">
-                                        <lightning-input-field field-name={fieldWFR}></lightning-input-field>
+                                        <!-- is CHeckbox -->
+                                        <template if:true={fieldWFR.isCheckboxField}>
+                                            <lightning-input 
+                                            type={fieldWFR.type}
+                                            name={fieldWFR.apiName}
+                                            label={fieldWFR.label}
+                                            checked={fieldWFR.value}
+                                            onchange={handleChangeWFRight}
+                                            ></lightning-input>
+                                        </template>
+                                        <!-- not Checkbox -->
+                                        <template if:false={fieldWFR.isCheckboxField}>
+                                            <!-- not Picklist -->
+                                            <template if:false={fieldWFR.isPicklistField}>
+                                                <lightning-input 
+                                                type={fieldWFR.type}
+                                                name={fieldWFR.apiName}
+                                                label={fieldWFR.label}
+                                                value={fieldWFR.value}
+                                                onchange={handleChangeWFRight}
+                                                ></lightning-input>
+                                            </template>
+                                            <!-- if picklist -->
+                                            <template if:true={fieldWFR.isPicklistField}>
+                                                <lightning-combobox
+                                                name={fieldWFR.apiName}
+                                                label={fieldWFR.label}
+                                                value={fieldWFR.value}
+                                                options={fieldWFR.options}   
+                                                onchange={handleChangeWFRight}
+                                                ></lightning-combobox>
+                                            </template>
+                                        </template>
                                     </div>
                                 </template>
                         </div>
@@ -616,7 +731,40 @@
                             <!-- loop fields from custom metadata -->
                             <template for:each={fieldBoxLeft} for:item="fieldBXL">
                                 <div key={fieldBXL}>
-                                    <lightning-input-field field-name={fieldBXL}></lightning-input-field>
+                                    <!-- is CHeckbox -->
+                                    <template if:true={fieldBXL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldBXL.type}
+                                        name={fieldBXL.apiName}
+                                        label={fieldBXL.label}
+                                        checked={fieldBXL.value}
+                                        onchange={handleChangeBoxLeft}
+                                        ></lightning-input>
+                                    </template>
+                                    <!-- not Checkbox -->
+                                    <template if:false={fieldBXL.isCheckboxField}>
+                                        <!-- not Picklist -->
+                                        <template if:false={fieldBXL.isPicklistField}>
+                                            <lightning-input 
+                                            type={fieldBXL.type}
+                                            name={fieldBXL.apiName}
+                                            label={fieldBXL.label}
+                                            value={fieldBXL.value}
+                                            onchange={handleChangeBoxLeft}
+                                            ></lightning-input>
+                                        </template>
+                                        <template if:true={fieldBXL.isPicklistField}>
+                                            <!-- if picklist -->
+                                            <lightning-combobox
+                                            name={fieldBXL.apiName}
+                                            label={fieldBXL.label}
+                                            value={fieldBXL.value}
+                                            options={fieldBXL.options}   
+                                            onchange={handleChangeBoxLeft}
+                                            ></lightning-combobox>
+                                        </template> 
+                                    </template>
+                                       
                                 </div>
                             </template>
                         </div>
@@ -626,7 +774,40 @@
                                 <template for:each={fieldBoxRight} for:item="fieldBXR">
                                 <!-- wrap colums in right side -->
                                     <div key={fieldBXR} class="slds-grid slds-wrap">
-                                        <lightning-input-field field-name={fieldBXR}></lightning-input-field>
+                                        <!-- is CHeckbox -->
+                                        <template if:true={fieldBXR.isCheckboxField}>
+                                            <lightning-input 
+                                            type={fieldBXR.type}
+                                            name={fieldBXR.apiName}
+                                            label={fieldBXR.label}
+                                            checked={fieldBXR.value}
+                                            onchange={handleChangeBoxRight}
+                                            ></lightning-input>
+                                        </template>
+                                        <!-- not Checkbox -->
+                                        <template if:false={fieldBXR.isCheckboxField}>
+                                            <!-- not Picklist -->
+                                            <template if:false={fieldBXR.isPicklistField}>
+                                                <lightning-input 
+                                                type={fieldBXR.type}
+                                                name={fieldBXR.apiName}
+                                                label={fieldBXR.label}
+                                                value={fieldBXR.value}
+                                                onchange={handleChangeBoxRight}
+                                                ></lightning-input>
+                                            </template>
+                                            <!-- if picklist -->
+                                            <template if:true={fieldBXR.isPicklistField}>
+                                                <lightning-combobox
+                                                name={fieldBXR.apiName}
+                                                label={fieldBXR.label}
+                                                value={fieldBXR.value}
+                                                options={fieldBXR.options}   
+                                                onchange={handleChangeBoxRight}
+                                                ></lightning-combobox>
+                                            </template>
+                                                
+                                        </template>
                                     </div>
                                 </template>
                         </div>
@@ -656,7 +837,26 @@
                             <!-- loop fields from custom metadata -->
                             <template for:each={fieldCardLeft} for:item="fieldCDL">
                                 <div key={fieldCDL}>
-                                    <lightning-input-field field-name={fieldCDL}></lightning-input-field>
+                                    <!-- is CHeckbox -->
+                                    <template if:true={fieldCDL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldCDL.type}
+                                        name={fieldCDL.apiName}
+                                        label={fieldCDL.label}
+                                        checked={fieldCDL.value}
+                                        onchange={handleChangeCardLeft}
+                                        ></lightning-input>
+                                    </template>
+                                    <!-- not Checkbox -->
+                                    <template if:false={fieldCDL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldCDL.type}
+                                        name={fieldCDL.apiName}
+                                        label={fieldCDL.label}
+                                        value={fieldCDL.value}
+                                        onchange={handleChangeCardLeft}
+                                        ></lightning-input>
+                                    </template>
                                 </div>
                             </template>
                         </div>
@@ -688,19 +888,70 @@
                             <!-- loop fields from custom metadata -->
                             <template for:each={fieldDocissueLeft} for:item="fieldDIL">
                             <div key={fieldDIL}>
-                                <lightning-input-field field-name={fieldDIL}></lightning-input-field>
+                                <!-- is CHeckbox -->
+                                <template if:true={fieldDIL.isCheckboxField}>
+                                    <lightning-input 
+                                    type={fieldDIL.type}
+                                    name={fieldDIL.apiName}
+                                    label={fieldDIL.label}
+                                    checked={fieldDIL.value}
+                                    onchange={handleChangeDocissueLeft}
+                                    ></lightning-input>
+                                </template>
+                                <!-- not Checkbox -->
+                                <template if:false={fieldDIL.isCheckboxField}>
+                                    <lightning-input 
+                                    type={fieldDIL.type}
+                                    name={fieldDIL.apiName}
+                                    label={fieldDIL.label}
+                                    value={fieldDIL.value}
+                                    onchange={handleChangeDocissueLeft}
+                                    ></lightning-input>
+                                </template>
                             </div>
                         </template>
                         </div>
                         <!-- right side of grid -->
                         <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldDocissueRight} for:item="fieldDIR">
-                                <!-- wrap colums in right side -->
-                                    <div key={fieldDIR} class="slds-grid slds-wrap">
-                                        <lightning-input-field field-name={fieldDIR}></lightning-input-field>
-                                    </div>
-                                </template>
+                            <!-- loop fields from custom metadata -->
+                            <template for:each={fieldDocissueRight} for:item="fieldDIR">
+                            <!-- wrap colums in right side -->
+                                <div key={fieldDIR} class="slds-grid slds-wrap">
+                                    <!-- is CHeckbox -->
+                                    <template if:true={fieldDIR.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldDIR.type}
+                                        name={fieldDIR.apiName}
+                                        label={fieldDIR.label}
+                                        checked={fieldDIR.value}
+                                        onchange={handleChangeDocissueRight}
+                                        ></lightning-input>
+                                    </template>
+                                    <!-- not Checkbox -->
+                                    <template if:false={fieldDIR.isCheckboxField}>
+                                        <!-- not Picklist -->
+                                        <template if:false={fieldDIR.isPicklistField}>
+                                            <lightning-input 
+                                            type={fieldDIR.type}
+                                            name={fieldDIR.apiName}
+                                            label={fieldDIR.label}
+                                            value={fieldDIR.value}
+                                            onchange={handleChangeDocissueRight}
+                                            ></lightning-input>
+                                        </template>
+                                        <!-- if picklist -->
+                                        <template if:true={fieldDIR.isPicklistField}>
+                                            <lightning-combobox
+                                            name={fieldDIR.apiName}
+                                            label={fieldDIR.label}
+                                            value={fieldDIR.value}
+                                            options={fieldDIR.options}   
+                                            onchange={handleChangeDocissueRight}
+                                            ></lightning-combobox>
+                                        </template> 
+                                    </template>
+                                </div>
+                            </template>
                         </div>
                     </div>
 
@@ -726,9 +977,28 @@
                         <!-- left side of grid -->
                         <div class="slds-col slds-size_1-of-2">
                             <!-- loop fields from custom metadata -->
-                            <template for:each={fieldAPILeftt} for:item="fieldAPIL">
+                            <template for:each={fieldAPILeft} for:item="fieldAPIL">
                                 <div key={fieldAPIL}>
-                                    <lightning-input-field field-name={fieldAPIL}></lightning-input-field>
+                                    <!-- is CHeckbox -->
+                                    <template if:true={fieldAPIL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldAPIL.type}
+                                        name={fieldAPIL.apiName}
+                                        label={fieldAPIL.label}
+                                        checked={fieldAPIL.value}
+                                        onchange={handleChangeAPILeft}
+                                        ></lightning-input>
+                                    </template>
+                                    <!-- not Checkbox -->
+                                    <template if:false={fieldAPIL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldAPIL.type}
+                                        name={fieldAPIL.apiName}
+                                        label={fieldAPIL.label}
+                                        value={fieldAPIL.value}
+                                        onchange={handleChangeAPILeft}
+                                        ></lightning-input>
+                                    </template>
                                 </div>
                             </template>
                         </div>
@@ -738,7 +1008,39 @@
                                 <template for:each={fieldAPIRight} for:item="fieldAPIR">
                                 <!-- wrap colums in right side -->
                                     <div key={fieldAPIR} class="slds-grid slds-wrap">
-                                        <lightning-input-field field-name={fieldAPIR}></lightning-input-field>
+                                        <!-- is CHeckbox -->
+                                        <template if:true={fieldAPIR.isCheckboxField}>
+                                            <lightning-input 
+                                            type={fieldAPIR.type}
+                                            name={fieldAPIR.apiName}
+                                            label={fieldAPIR.label}
+                                            checked={fieldAPIR.value}
+                                            onchange={handleChangeAPIRight}
+                                            ></lightning-input>
+                                        </template>
+                                        <!-- not Checkbox -->
+                                        <template if:false={fieldAPIR.isCheckboxField}>
+                                            <!-- not Picklist -->
+                                            <template if:false={fieldAPIR.isPicklistField}>
+                                                <lightning-input 
+                                                type={fieldAPIR.type}
+                                                name={fieldAPIR.apiName}
+                                                label={fieldAPIR.label}
+                                                value={fieldAPIR.value}
+                                                onchange={handleChangeAPIRight}
+                                                ></lightning-input>
+                                            </template>
+                                            <!-- if picklist -->
+                                            <template if:true={fieldAPIR.isPicklistField}>
+                                                <lightning-combobox
+                                                name={fieldAPIR.apiName}
+                                                label={fieldAPIR.label}
+                                                value={fieldAPIR.value}
+                                                options={fieldAPIR.options}   
+                                                onchange={handleChangeAPIRight}
+                                                ></lightning-combobox>
+                                            </template> 
+                                        </template>
                                     </div>
                                 </template>
                         </div>
@@ -768,7 +1070,26 @@
                             <!-- loop fields from custom metadata -->
                             <template for:each={fieldAttendanceLeft} for:item="fieldADL">
                                 <div key={fieldADL}>
-                                    <lightning-input-field field-name={fieldADL}></lightning-input-field>
+                                    <!-- is CHeckbox -->
+                                    <template if:true={fieldADL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldADL.type}
+                                        name={fieldADL.apiName}
+                                        label={fieldADL.label}
+                                        checked={fieldADL.value}
+                                        onchange={handleChangeAttendanceLeft}
+                                        ></lightning-input>
+                                    </template>
+                                    <!-- not Checkbox -->
+                                    <template if:false={fieldADL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldADL.type}
+                                        name={fieldADL.apiName}
+                                        label={fieldADL.label}
+                                        value={fieldADL.value}
+                                        onchange={handleChangeAttendanceLeft}
+                                        ></lightning-input>
+                                    </template>
                                 </div>
                             </template>
                         </div>
@@ -777,8 +1098,39 @@
                                 <!-- loop fields from custom metadata -->
                                 <template for:each={fieldAttendanceRight} for:item="fieldADR">
                                 <!-- wrap colums in right side -->
-                                    <div key={fieldADRR} class="slds-grid slds-wrap">
-                                        <lightning-input-field field-name={fieldADR}></lightning-input-field>
+                                    <div key={fieldADR} class="slds-grid slds-wrap">
+                                        <!-- is CHeckbox -->
+                                        <template if:true={fieldADR.isCheckboxField}>
+                                            <lightning-input 
+                                            type={fieldADR.type}
+                                            name={fieldADR.apiName}
+                                            label={fieldADR.label}
+                                            checked={fieldADR.value}
+                                            onchange={handleChangeAttendanceRight}
+                                            ></lightning-input>
+                                        </template>
+                                        <template if:false={fieldADR.isCheckboxField}>
+                                            <!-- not Picklist -->
+                                            <template if:false={fieldADR.isPicklistField}>
+                                                <lightning-input 
+                                                type={fieldADR.type}
+                                                name={fieldADR.apiName}
+                                                label={fieldADR.label}
+                                                value={fieldADR.value}
+                                                onchange={handleChangeAttendanceRight}
+                                                ></lightning-input>
+                                            </template>
+                                            <!-- if picklist -->
+                                            <template if:true={fieldADR.isPicklistField}>
+                                                <lightning-combobox
+                                                name={fieldADR.apiName}
+                                                label={fieldADR.label}
+                                                value={fieldADR.value}
+                                                options={fieldADR.options}   
+                                                onchange={handleChangeAttendanceRight}
+                                                ></lightning-combobox>
+                                            </template> 
+                                        </template>
                                     </div>
                                 </template>
                         </div>
@@ -809,7 +1161,26 @@
                             <!-- loop fields from custom metadata -->
                             <template for:each={fieldBpoDocLeft} for:item="fieldBpoDocL">
                                 <div key={fieldBpoDocL}>
-                                    <lightning-input-field field-name={fieldBpoDocL}></lightning-input-field>
+                                    <!-- is CHeckbox -->
+                                    <template if:true={fieldBpoDocL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldBpoDocL.type}
+                                        name={fieldBpoDocL.apiName}
+                                        label={fieldBpoDocL.label}
+                                        checked={fieldBpoDocL.value}
+                                        onchange={handleChangeBpoDocLeft}
+                                        ></lightning-input>
+                                    </template>
+                                    <!-- not Checkbox -->
+                                    <template if:false={fieldBpoDocL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldBpoDocL.type}
+                                        name={fieldBpoDocL.apiName}
+                                        label={fieldBpoDocL.label}
+                                        value={fieldBpoDocL.value}
+                                        onchange={handleChangeBpoDocLeft}
+                                        ></lightning-input>
+                                    </template>
                                 </div>
                             </template>
                         </div>
@@ -819,7 +1190,39 @@
                                 <template for:each={fieldBpoDocRight} for:item="fieldBpoDocR">
                                 <!-- wrap colums in right side -->
                                     <div key={fieldBpoDocR} class="slds-grid slds-wrap">
-                                        <lightning-input-field field-name={fieldBpoDocR}></lightning-input-field>
+                                        <!-- is CHeckbox -->
+                                        <template if:true={fieldBpoDocR.isCheckboxField}>
+                                            <lightning-input 
+                                            type={fieldBpoDocR.type}
+                                            name={fieldBpoDocR.apiName}
+                                            label={fieldBpoDocR.label}
+                                            checked={fieldBpoDocR.value}
+                                            onchange={handleChangeBpoDocRight}
+                                            ></lightning-input>
+                                        </template>
+                                        <!-- not Checkbox -->
+                                        <template if:false={fieldBpoDocR.isCheckboxField}>
+                                            <!-- not Picklist -->
+                                            <template if:false={fieldBpoDocR.isPicklistField}>
+                                                <lightning-input 
+                                                type={fieldBpoDocR.type}
+                                                name={fieldBpoDocR.apiName}
+                                                label={fieldBpoDocR.label}
+                                                value={fieldBpoDocR.value}
+                                                onchange={handleChangeBpoDocRight}
+                                                ></lightning-input>
+                                            </template>
+                                            <!-- if picklist -->
+                                            <template if:true={fieldBpoDocR.isPicklistField}>
+                                                <lightning-combobox
+                                                name={fieldBpoDocR.apiName}
+                                                label={fieldBpoDocR.label}
+                                                value={fieldBpoDocR.value}
+                                                options={fieldBpoDocR.options}   
+                                                onchange={handleChangeBpoDocRight}
+                                                ></lightning-combobox>
+                                            </template> 
+                                        </template>
                                     </div>
                                 </template>
                         </div>
@@ -850,7 +1253,26 @@
                             <!-- loop fields from custom metadata -->
                             <template for:each={fieldOptionLeft} for:item="fieldOPL">
                                 <div key={fieldOPL}>
-                                    <lightning-input-field field-name={fieldOPL}></lightning-input-field>
+                                    <!-- is CHeckbox -->
+                                    <template if:true={fieldOPL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldOPL.type}
+                                        name={fieldOPL.apiName}
+                                        label={fieldOPL.label}
+                                        checked={fieldOPL.value}
+                                        onchange={handleChangeOptionLeft}
+                                        ></lightning-input>
+                                    </template>
+                                    <!-- not Checkbox -->
+                                    <template if:false={fieldOPL.isCheckboxField}>
+                                        <lightning-input 
+                                        type={fieldOPL.type}
+                                        name={fieldOPL.apiName}
+                                        label={fieldOPL.label}
+                                        value={fieldOPL.value}
+                                        onchange={handleChangeOptionLeft}
+                                        ></lightning-input>
+                                    </template>
                                 </div>
                             </template>
                         </div>
@@ -860,7 +1282,39 @@
                                 <template for:each={fieldOptionRight} for:item="fieldOPR">
                                 <!-- wrap colums in right side -->
                                     <div key={fieldOPR} class="slds-grid slds-wrap">
-                                        <lightning-input-field field-name={fieldOPR}></lightning-input-field>
+                                        <!-- is CHeckbox -->
+                                        <template if:true={fieldOPR.isCheckboxField}>
+                                            <lightning-input 
+                                            type={fieldOPR.type}
+                                            name={fieldOPR.apiName}
+                                            label={fieldOPR.label}
+                                            checked={fieldOPR.value}
+                                            onchange={handleChangeOptionRight}
+                                            ></lightning-input>
+                                        </template>
+                                        <!-- not Checkbox -->
+                                        <template if:false={fieldOPR.isCheckboxField}>
+                                            <!-- not Picklist -->
+                                            <template if:false={fieldOPR.isPicklistField}>
+                                                <lightning-input 
+                                                type={fieldOPR.type}
+                                                name={fieldOPR.apiName}
+                                                label={fieldOPR.label}
+                                                value={fieldOPR.value}
+                                                onchange={handleChangeOptionRight}
+                                                ></lightning-input>
+                                            </template>
+                                            <!-- if picklist -->
+                                            <template if:true={fieldOPR.isPicklistField}>
+                                                <lightning-combobox
+                                                name={fieldOPR.apiName}
+                                                label={fieldOPR.label}
+                                                value={fieldOPR.value}
+                                                options={fieldOPR.options}   
+                                                onchange={handleChangeOptionRight}
+                                                ></lightning-combobox>
+                                            </template> 
+                                        </template>
                                     </div>
                                 </template>
                         </div>
