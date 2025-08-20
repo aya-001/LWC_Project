@@ -26,8 +26,10 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class LwcTenantRequest extends LightningElement {
 
-    @api recordId;
+    @api recordId; 
     @api objectApiName = "TenantRequest__c";
+    @api var_TenantRequest__c;  /* TenantRequest__c record variable from screen flow*/
+    //@api var_UpdateRecord;
 
     fieldsSettingTypeLeft = [];
     fieldsBasicInfoLeft = [];
@@ -42,7 +44,7 @@ export default class LwcTenantRequest extends LightningElement {
     fieldCardLeft = [];
     fieldDocissueLeft = [];
     fieldDocissueRight = [];
-    fieldAPILeftt = [];
+    fieldAPILeft = [];
     fieldAPIRight = [];
     fieldAttendanceLeft = [];
     fieldAttendanceRight = [];
@@ -53,16 +55,35 @@ export default class LwcTenantRequest extends LightningElement {
 
     selectedValue = '';
 
+    connectedCallback() {
+        console.log('record Id from layout:', this.recordId);
+        console.log('Flow record:', JSON.stringify(this.var_TenantRequest__c));
+        console.log('Flow record object:', this.var_TenantRequest__c);
+}
+
     //check if this LWC is in record page or it is in Flow Screen
     get isRecordPage(){
         return this.recordId !== undefined && this.recordId !== null;
     }
 
+    //check if the field is boolean or not
+    isCheckbox(type){
+        return type === 'checkbox';
+    }
 
      @wire(getTenantSettingTypeLeft)
     wiredSettingTypeLeft({error, data}){
-        if(data){
-            this.fieldsSettingTypeLeft = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldsSettingTypeLeft = data.map(f => {
+                console.log('Mapping field:', f, 'Value from record:');
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
+
         }else if(error) {
             console.error('Error fetching fields:', error);
         }
@@ -71,8 +92,16 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantBasicInfoLeft)
     wiredBasicInfoLeft({error, data}){
-        if(data){
-            this.fieldsBasicInfoLeft = data;
+         /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldsBasicInfoLeft = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
+
         }else if(error) {
             console.error('Error fetching fields:', error);
         }
@@ -81,8 +110,16 @@ export default class LwcTenantRequest extends LightningElement {
     
     @wire(getTenantBasicInfoRight)
     wiredBasicInfoRight({error, data}){
-        if(data){
-            this.fieldsBasicInfoRight = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldsBasicInfoRight = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
+
         }else if(error) {
             console.error('Error fetching fields:', error);
         }
@@ -90,9 +127,19 @@ export default class LwcTenantRequest extends LightningElement {
 
      @wire(getTenantInvoiceLeft)
     wiredInvoiceLeft({error, data}){
-        if(data){
-            console.log('invoice Left', JSON.stringify(data));
-            this.fieldInvoiceLeft = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldInvoiceLeft = data.map(f => {
+                console.log('Mapping field for fieldInvoiceLeft:', f); //{apiName: 'CanUseLXI__c', label: 'バクラク債権・債務管理を利用する', type: 'checkbox', isCheckboxField: true, isPicklistField: false}
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
+
+            console.log('invoice Left', JSON.stringify(this.fieldInvoiceLeft));
+
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -100,8 +147,14 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantInvoiceRight)
     wiredInvoiceRight({error, data}){
-        if(data){
-            this.fieldInvoiceRight = data;
+         if(data && this.var_TenantRequest__c){
+            this.fieldInvoiceRight = data.map(f => {
+                console.log('Mapping field for fieldInvoiceLeft:', f);
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -110,8 +163,13 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantWFLeft)
     wiredWFLeft({error, data}){
-        if(data){
-            this.fieldWFLeft = data;
+        if(data && this.var_TenantRequest__c){
+            this.fieldWFLeft = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -119,8 +177,15 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantWFRight)
     wiredWFRight({error, data}){
-        if(data){
-            this.fieldWFRight = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldWFRight = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -128,9 +193,17 @@ export default class LwcTenantRequest extends LightningElement {
 
      @wire(getTenantBoxLeft)
     wiredBoxLeft({error, data}){
-        if(data){
-            console.log('BoxLeft', JSON.stringify(data));
-            this.fieldBoxLeft = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldBoxLeft = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
+            console.log('BoxLeft', JSON.stringify(this.fieldBoxLeft));
+
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -138,9 +211,17 @@ export default class LwcTenantRequest extends LightningElement {
 
      @wire(getTenantBoxRight)
     wiredBoxRight({error, data}){
-        if(data){
-            console.log('BoxRight', JSON.stringify(data));
-            this.fieldBoxRight = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldBoxRight = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
+            console.log('BoxRight', JSON.stringify(this.fieldBoxRight));
+
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -150,8 +231,15 @@ export default class LwcTenantRequest extends LightningElement {
 
      @wire(getTenantCardLeft)
     wiredCardRight({error, data}){
-        if(data){
-            this.fieldCardLeft = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldCardLeft = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -159,8 +247,15 @@ export default class LwcTenantRequest extends LightningElement {
 
      @wire(getTenantDocissueLeft)
     wiredDocissueLeft({error, data}){
-        if(data){
-            this.fieldDocissueLeft = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldDocissueLeft = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -168,8 +263,15 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantDocissueRight)
     wiredDocissueRight({error, data}){
-        if(data){
-            this.fieldDocissueRight = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldDocissueRight = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -177,8 +279,15 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantAPILeft)
     wiredAPILeft({error, data}){
-        if(data){
-            this.fieldAPILeftt = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldAPILeft = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -186,8 +295,15 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantAPIRight)
     wiredAPIRight({error, data}){
-        if(data){
-            this.fieldAPIRight = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldAPIRight = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -195,8 +311,15 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantAttendanceLeft)
     wiredAttendanceLeft({error, data}){
-        if(data){
-            this.fieldAttendanceLeft = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldAttendanceLeft = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -204,8 +327,15 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantAttendanceRight)
     wiredAttendanceRight({error, data}){
-        if(data){
-            this.fieldAttendanceRight = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldAttendanceRight = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -213,8 +343,15 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantBpoDocLeft)
     wiredBpoDocLeft({error, data}){
-        if(data){
-            this.fieldBpoDocLeft = data;
+        /* add value from record variable to object of data of metadata retreived by Apex */
+        /* apiName, label, type, options & value*/
+        if(data && this.var_TenantRequest__c){
+            this.fieldBpoDocLeft = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -222,8 +359,14 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantBpoDocRight)
     wiredBpoDocRight({error, data}){
-        if(data){
-            this.fieldBpoDocRight = data;
+        if(data && this.var_TenantRequest__c){
+            this.fieldBpoDocRight = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
+            console.log('BpoDocRight', JSON.stringify(this.fieldBpoDocRight));
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -231,8 +374,14 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantOptionLeft)
     wiredOptionLeft({error, data}){
-        if(data){
-            this.fieldOptionLeft = data;
+        if(data && this.var_TenantRequest__c){
+            this.fieldOptionLeft = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.apiName] ?? null
+                };
+            });
+            console.log('OptionLeft', JSON.stringify(this.fieldOptionLeft));
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -240,11 +389,336 @@ export default class LwcTenantRequest extends LightningElement {
 
     @wire(getTenantOptionRight)
     wiredOptionRight({error, data}){
-        if(data){
-            this.fieldOptionRight = data;
+        console.log('OptionRight data', JSON.stringify(data));
+        let tempTenantRequest = {...this.var_TenantRequest__c};
+
+        if(data && this.var_TenantRequest__c){
+            this.fieldOptionRight = data.map(f => {
+
+                let fixValue = tempTenantRequest[f.apiName];
+                // if checkbox field = null, convert null to  false
+                if (f.isCheckboxField && (fixValue === null || fixValue === undefined) ) {
+                    fixValue = false;
+                    tempTenantRequest[f.apiName] = fixValue;
+                    console.log('tempTenantRequest:', JSON.stringify(tempTenantRequest));
+                }
+
+                return {...f,value : fixValue};
+                
+            });
+            this.var_TenantRequest__c = tempTenantRequest; // assign back
+
+            console.log('OptionRight', JSON.stringify(this.fieldOptionRight));
+            console.log('this.var_TenantRequest__c', JSON.stringify(this.var_TenantRequest__c));
         }else if(error){
             console.error('Error fetching fields:', error);
         }
+    }
+
+
+    handleChangeInvoiceLeft(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+        let tempTenantRequest = {...this.var_TenantRequest__c};
+        
+
+        //Update value property for LWC rendering
+        this.fieldInvoiceLeft = this.fieldInvoiceLeft.map(f => {
+            if(f.apiName === fieldName){
+                //assign new value to record variable's object
+                tempTenantRequest[f.apiName] = newValue;
+                //render the change from LWC screen to variable in lWC
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+         this.var_TenantRequest__c = tempTenantRequest; // assign back
+         console.log('this.var_TenantRequest__c fieldInvoiceLeft:', JSON.stringify(this.var_TenantRequest__c));
+    }
+
+    handleChangeInvoiceRight(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+        let tempTenantRequest = {...this.var_TenantRequest__c};
+
+        //Update value property for LWC rendering
+        this.fieldInvoiceRight = this.fieldInvoiceRight.map(f => {
+            if(f.apiName === fieldName){
+                //assign new value to record variable's object
+                tempTenantRequest[f.apiName] = newValue;
+                //render the change from LWC screen to variable in lWC
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+         this.var_TenantRequest__c = tempTenantRequest; // assign back
+         console.log('this.var_TenantRequest__c fieldInvoiceRight:', JSON.stringify(this.var_TenantRequest__c));
+    }
+
+    handleChangeWFLeft(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldWFLeft = this.fieldWFLeft.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeWFRight(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldWFRight = this.fieldWFRight.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeBoxLeft(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldBoxLeft = this.fieldBoxLeft.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeBoxRight(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldBoxRight = this.fieldBoxRight.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeCardLeft(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldCardLeft = this.fieldCardLeft.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeDocissueLeft(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldDocissueLeft = this.fieldDocissueLeft.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeDocissueRight(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldDocissueRight = this.fieldDocissueRight.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+
+    handleChangeAPILeft(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldAPILeft = this.fieldAPILeft.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+
+    handleChangeAPIRight(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldAPIRight = this.fieldAPIRight.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeAttendanceLeft(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldAttendanceLeft = this.fieldAttendanceLeft.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+
+    handleChangeAttendanceRight(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldAttendanceRight = this.fieldAttendanceRight.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeBpoDocLeft(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldBpoDocLeft = this.fieldBpoDocLeft.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeBpoDocRight(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldBpoDocRight = this.fieldBpoDocRight.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeOptionLeft(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldOptionLeft = this.fieldOptionLeft.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+    }
+
+    handleChangeOptionRight(event){
+        const fieldName = event.target.name;
+        const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+
+        //Update value property for LWC rendering
+        this.fieldOptionRight = this.fieldOptionRight.map(f => {
+            if(f.apiName === fieldName){
+                return {...f, value:newValue};
+            }
+            //other apiName value remains the same
+            return f;
+        });
+        console.log('this.fieldOptionRight :', JSON.stringify(this.fieldOptionRight));
+
+        //Update the flow record variable
+        this.var_TenantRequest__c[fieldName] = newValue;
+        console.log('this.var_TenantRequest__c :', JSON.stringify(this.var_TenantRequest__c));
     }
 
 
