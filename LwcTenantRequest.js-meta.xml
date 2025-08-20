@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+	<apiVersion>63.0</apiVersion>
+	<isExposed>true</isExposed>
+	<targets>
+		<target>lightning__AppPage</target>
+		<target>lightning__HomePage</target>
+		<target>lightning__RecordPage</target>
+		<target>lightning__RecordAction</target>
+		<target>lightning__FlowScreen</target>
+	</targets>
+	<targetConfigs>
+	<targetConfig targets="lightning__FlowScreen">
+            <property name="var_TenantRequest__c" type="@salesforce/schema/TenantRequest__c" label="Tenant Request Record"/>
+            <!-- <property name="var_UpdateRecord" type="@salesforce/schema/TenantRequest__c" label="Updated Record" role="outputOnly"/> -->
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
