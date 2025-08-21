@@ -31,6 +31,7 @@ export default class LwcTenantRequest extends LightningElement {
     @api var_TenantRequest__c;  /* TenantRequest__c record variable from screen flow*/
     //@api var_UpdateRecord;
 
+
     fieldsSettingTypeLeft = [];
     fieldsBasicInfoLeft = [];
     fieldsBasicInfoRight = [];
@@ -155,6 +156,7 @@ export default class LwcTenantRequest extends LightningElement {
                     value : this.var_TenantRequest__c[f.apiName] ?? null
                 };
             });
+            console.log('fieldInvoiceRight :', JSON.stringify(this.fieldInvoiceRight));
         }else if(error){
             console.error('Error fetching fields:', error);
         }
@@ -435,7 +437,7 @@ export default class LwcTenantRequest extends LightningElement {
         });
 
         //Update the flow record variable
-         this.var_TenantRequest__c = tempTenantRequest; // assign back
+        this.var_TenantRequest__c = { ...tempTenantRequest }; // assign back
          console.log('this.var_TenantRequest__c fieldInvoiceLeft:', JSON.stringify(this.var_TenantRequest__c));
     }
 
@@ -457,17 +459,21 @@ export default class LwcTenantRequest extends LightningElement {
         });
 
         //Update the flow record variable
-         this.var_TenantRequest__c = tempTenantRequest; // assign back
+        this.var_TenantRequest__c = { ...tempTenantRequest }; // assign back
          console.log('this.var_TenantRequest__c fieldInvoiceRight:', JSON.stringify(this.var_TenantRequest__c));
     }
 
     handleChangeWFLeft(event){
         const fieldName = event.target.name;
         const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
+        let tempTenantRequest = {...this.var_TenantRequest__c};
 
         //Update value property for LWC rendering
         this.fieldWFLeft = this.fieldWFLeft.map(f => {
             if(f.apiName === fieldName){
+                //assign new value to record variable's object
+                tempTenantRequest[f.apiName] = newValue;
+                //render the change from LWC screen to variable in lWC
                 return {...f, value:newValue};
             }
             //other apiName value remains the same
@@ -475,7 +481,8 @@ export default class LwcTenantRequest extends LightningElement {
         });
 
         //Update the flow record variable
-        this.var_TenantRequest__c[fieldName] = newValue;
+        this.var_TenantRequest__c = { ...tempTenantRequest }; // assign back
+         console.log('this.var_TenantRequest__c fieldWFLeft :', JSON.stringify(this.var_TenantRequest__c));
     }
 
     handleChangeWFRight(event){
@@ -720,7 +727,7 @@ export default class LwcTenantRequest extends LightningElement {
         this.var_TenantRequest__c[fieldName] = newValue;
         console.log('this.var_TenantRequest__c :', JSON.stringify(this.var_TenantRequest__c));
     }
-
+ 
 
 
     /* get options() {
