@@ -541,6 +541,7 @@
                                         name={fieldIVL.apiName}
                                         label={fieldIVL.label}
                                         checked={fieldIVL.value}
+                                        disabled={fieldIVL.isFormulaField}
                                         onchange={handleChangeInvoiceLeft}
                                         ></lightning-input>
                                     </template>
@@ -554,6 +555,7 @@
                                             name={fieldIVL.apiName}
                                             label={fieldIVL.label}
                                             value={fieldIVL.value}
+                                            disabled={fieldIVL.isFormulaField}
                                             onchange={handleChangeInvoiceLeft}
                                             ></lightning-input>
                                         </template>
@@ -563,7 +565,8 @@
                                             name={fieldIVL.apiName}
                                             label={fieldIVL.label}
                                             value={fieldIVL.value}
-                                            options={fieldIVL.options}   
+                                            options={fieldIVL.options}  
+                                            disabled={fieldIVL.isFormulaField} 
                                             onchange={handleChangeInvoiceLeft}
                                             ></lightning-combobox>
                                         </template>
@@ -585,6 +588,7 @@
                                             name={fieldIVR.apiName}
                                             label={fieldIVR.label}
                                             checked={fieldIVR.value}
+                                            disabled={fieldIVR.isFormulaField}
                                             onchange={handleChangeInvoiceRight}
                                             ></lightning-input>
                                         </template>
@@ -597,6 +601,7 @@
                                                 name={fieldIVR.apiName}
                                                 label={fieldIVR.label}
                                                 value={fieldIVR.value}
+                                                disabled={fieldIVR.isFormulaField}
                                                 onchange={handleChangeInvoiceRight}
                                                 ></lightning-input>
                                             </template>
@@ -606,7 +611,8 @@
                                                 name={fieldIVR.apiName}
                                                 label={fieldIVR.label}
                                                 value={fieldIVR.value}
-                                                options={fieldIVR.options}   
+                                                options={fieldIVR.options}
+                                                disabled={fieldIVR.isFormulaField}   
                                                 onchange={handleChangeInvoiceRight}
                                                 ></lightning-combobox>
                                             </template>
@@ -646,6 +652,7 @@
                                             name={fieldWFL.apiName}
                                             label={fieldWFL.label}
                                             checked={fieldWFL.value}
+                                            disabled={fieldWFL.isFormulaField}
                                             onchange={handleChangeWFLeft}
                                             ></lightning-input>
                                         </template>
@@ -656,6 +663,7 @@
                                             name={fieldWFL.apiName}
                                             label={fieldWFL.label}
                                             value={fieldWFL.value}
+                                            disabled={fieldWFL.isFormulaField}
                                             onchange={handleChangeWFLeft}
                                             ></lightning-input>
                                         </template>
@@ -675,6 +683,7 @@
                                             name={fieldWFR.apiName}
                                             label={fieldWFR.label}
                                             checked={fieldWFR.value}
+                                            disabled={fieldWFR.isFormulaField}
                                             onchange={handleChangeWFRight}
                                             ></lightning-input>
                                         </template>
@@ -687,6 +696,7 @@
                                                 name={fieldWFR.apiName}
                                                 label={fieldWFR.label}
                                                 value={fieldWFR.value}
+                                                disabled={fieldWFR.isFormulaField}
                                                 onchange={handleChangeWFRight}
                                                 ></lightning-input>
                                             </template>
@@ -696,7 +706,8 @@
                                                 name={fieldWFR.apiName}
                                                 label={fieldWFR.label}
                                                 value={fieldWFR.value}
-                                                options={fieldWFR.options}   
+                                                options={fieldWFR.options} 
+                                                disabled={fieldWFR.isFormulaField}  
                                                 onchange={handleChangeWFRight}
                                                 ></lightning-combobox>
                                             </template>
@@ -738,6 +749,7 @@
                                         name={fieldBXL.apiName}
                                         label={fieldBXL.label}
                                         checked={fieldBXL.value}
+                                        disabled={fieldBXL.isFormulaField}
                                         onchange={handleChangeBoxLeft}
                                         ></lightning-input>
                                     </template>
@@ -750,6 +762,7 @@
                                             name={fieldBXL.apiName}
                                             label={fieldBXL.label}
                                             value={fieldBXL.value}
+                                            disabled={fieldBXL.isFormulaField}
                                             onchange={handleChangeBoxLeft}
                                             ></lightning-input>
                                         </template>
@@ -759,7 +772,8 @@
                                             name={fieldBXL.apiName}
                                             label={fieldBXL.label}
                                             value={fieldBXL.value}
-                                            options={fieldBXL.options}   
+                                            options={fieldBXL.options} 
+                                            disabled={fieldBXL.isFormulaField}  
                                             onchange={handleChangeBoxLeft}
                                             ></lightning-combobox>
                                         </template> 
@@ -781,6 +795,7 @@
                                             name={fieldBXR.apiName}
                                             label={fieldBXR.label}
                                             checked={fieldBXR.value}
+                                            disabled={fieldBXR.isFormulaField}
                                             onchange={handleChangeBoxRight}
                                             ></lightning-input>
                                         </template>
@@ -793,6 +808,7 @@
                                                 name={fieldBXR.apiName}
                                                 label={fieldBXR.label}
                                                 value={fieldBXR.value}
+                                                disabled={fieldBXR.isFormulaField}
                                                 onchange={handleChangeBoxRight}
                                                 ></lightning-input>
                                             </template>
@@ -802,7 +818,8 @@
                                                 name={fieldBXR.apiName}
                                                 label={fieldBXR.label}
                                                 value={fieldBXR.value}
-                                                options={fieldBXR.options}   
+                                                options={fieldBXR.options}
+                                                disabled={fieldBXR.isFormulaField}   
                                                 onchange={handleChangeBoxRight}
                                                 ></lightning-combobox>
                                             </template>
@@ -844,6 +861,7 @@
                                         name={fieldCDL.apiName}
                                         label={fieldCDL.label}
                                         checked={fieldCDL.value}
+                                        disabled={fieldCDL.isFormulaField}
                                         onchange={handleChangeCardLeft}
                                         ></lightning-input>
                                     </template>
@@ -854,6 +872,7 @@
                                         name={fieldCDL.apiName}
                                         label={fieldCDL.label}
                                         value={fieldCDL.value}
+                                        disabled={fieldCDL.isFormulaField}
                                         onchange={handleChangeCardLeft}
                                         ></lightning-input>
                                     </template>
@@ -895,6 +914,7 @@
                                     name={fieldDIL.apiName}
                                     label={fieldDIL.label}
                                     checked={fieldDIL.value}
+                                    disabled={fieldDIL.isFormulaField}
                                     onchange={handleChangeDocissueLeft}
                                     ></lightning-input>
                                 </template>
@@ -905,6 +925,7 @@
                                     name={fieldDIL.apiName}
                                     label={fieldDIL.label}
                                     value={fieldDIL.value}
+                                    disabled={fieldDIL.isFormulaField}
                                     onchange={handleChangeDocissueLeft}
                                     ></lightning-input>
                                 </template>
@@ -924,6 +945,7 @@
                                         name={fieldDIR.apiName}
                                         label={fieldDIR.label}
                                         checked={fieldDIR.value}
+                                        disabled={fieldDIR.isFormulaField}
                                         onchange={handleChangeDocissueRight}
                                         ></lightning-input>
                                     </template>
@@ -936,6 +958,7 @@
                                             name={fieldDIR.apiName}
                                             label={fieldDIR.label}
                                             value={fieldDIR.value}
+                                            disabled={fieldDIR.isFormulaField}
                                             onchange={handleChangeDocissueRight}
                                             ></lightning-input>
                                         </template>
@@ -945,7 +968,8 @@
                                             name={fieldDIR.apiName}
                                             label={fieldDIR.label}
                                             value={fieldDIR.value}
-                                            options={fieldDIR.options}   
+                                            options={fieldDIR.options} 
+                                            disabled={fieldDIR.isFormulaField}  
                                             onchange={handleChangeDocissueRight}
                                             ></lightning-combobox>
                                         </template> 
@@ -986,6 +1010,7 @@
                                         name={fieldAPIL.apiName}
                                         label={fieldAPIL.label}
                                         checked={fieldAPIL.value}
+                                        disabled={fieldAPIL.isFormulaField}
                                         onchange={handleChangeAPILeft}
                                         ></lightning-input>
                                     </template>
@@ -996,6 +1021,7 @@
                                         name={fieldAPIL.apiName}
                                         label={fieldAPIL.label}
                                         value={fieldAPIL.value}
+                                        disabled={fieldAPIL.isFormulaField}
                                         onchange={handleChangeAPILeft}
                                         ></lightning-input>
                                     </template>
@@ -1015,6 +1041,7 @@
                                             name={fieldAPIR.apiName}
                                             label={fieldAPIR.label}
                                             checked={fieldAPIR.value}
+                                            disabled={fieldAPIR.isFormulaField}
                                             onchange={handleChangeAPIRight}
                                             ></lightning-input>
                                         </template>
@@ -1027,6 +1054,7 @@
                                                 name={fieldAPIR.apiName}
                                                 label={fieldAPIR.label}
                                                 value={fieldAPIR.value}
+                                                disabled={fieldAPIR.isFormulaField}
                                                 onchange={handleChangeAPIRight}
                                                 ></lightning-input>
                                             </template>
@@ -1036,7 +1064,8 @@
                                                 name={fieldAPIR.apiName}
                                                 label={fieldAPIR.label}
                                                 value={fieldAPIR.value}
-                                                options={fieldAPIR.options}   
+                                                options={fieldAPIR.options}  
+                                                disabled={fieldAPIR.isFormulaField} 
                                                 onchange={handleChangeAPIRight}
                                                 ></lightning-combobox>
                                             </template> 
@@ -1077,6 +1106,7 @@
                                         name={fieldADL.apiName}
                                         label={fieldADL.label}
                                         checked={fieldADL.value}
+                                        disabled={fieldADL.isFormulaField}
                                         onchange={handleChangeAttendanceLeft}
                                         ></lightning-input>
                                     </template>
@@ -1087,6 +1117,7 @@
                                         name={fieldADL.apiName}
                                         label={fieldADL.label}
                                         value={fieldADL.value}
+                                        disabled={fieldADL.isFormulaField}
                                         onchange={handleChangeAttendanceLeft}
                                         ></lightning-input>
                                     </template>
@@ -1106,6 +1137,7 @@
                                             name={fieldADR.apiName}
                                             label={fieldADR.label}
                                             checked={fieldADR.value}
+                                            disabled={fieldADR.isFormulaField}
                                             onchange={handleChangeAttendanceRight}
                                             ></lightning-input>
                                         </template>
@@ -1117,6 +1149,7 @@
                                                 name={fieldADR.apiName}
                                                 label={fieldADR.label}
                                                 value={fieldADR.value}
+                                                disabled={fieldADR.isFormulaField}
                                                 onchange={handleChangeAttendanceRight}
                                                 ></lightning-input>
                                             </template>
@@ -1126,7 +1159,8 @@
                                                 name={fieldADR.apiName}
                                                 label={fieldADR.label}
                                                 value={fieldADR.value}
-                                                options={fieldADR.options}   
+                                                options={fieldADR.options} 
+                                                disabled={fieldADR.isFormulaField}  
                                                 onchange={handleChangeAttendanceRight}
                                                 ></lightning-combobox>
                                             </template> 
@@ -1168,6 +1202,7 @@
                                         name={fieldBpoDocL.apiName}
                                         label={fieldBpoDocL.label}
                                         checked={fieldBpoDocL.value}
+                                        disabled={fieldBpoDocL.isFormulaField}
                                         onchange={handleChangeBpoDocLeft}
                                         ></lightning-input>
                                     </template>
@@ -1178,6 +1213,7 @@
                                         name={fieldBpoDocL.apiName}
                                         label={fieldBpoDocL.label}
                                         value={fieldBpoDocL.value}
+                                        disabled={fieldBpoDocL.isFormulaField}
                                         onchange={handleChangeBpoDocLeft}
                                         ></lightning-input>
                                     </template>
@@ -1197,6 +1233,7 @@
                                             name={fieldBpoDocR.apiName}
                                             label={fieldBpoDocR.label}
                                             checked={fieldBpoDocR.value}
+                                            disabled={fieldBpoDocR.isFormulaField}
                                             onchange={handleChangeBpoDocRight}
                                             ></lightning-input>
                                         </template>
@@ -1209,6 +1246,7 @@
                                                 name={fieldBpoDocR.apiName}
                                                 label={fieldBpoDocR.label}
                                                 value={fieldBpoDocR.value}
+                                                disabled={fieldBpoDocR.isFormulaField}
                                                 onchange={handleChangeBpoDocRight}
                                                 ></lightning-input>
                                             </template>
@@ -1218,7 +1256,8 @@
                                                 name={fieldBpoDocR.apiName}
                                                 label={fieldBpoDocR.label}
                                                 value={fieldBpoDocR.value}
-                                                options={fieldBpoDocR.options}   
+                                                options={fieldBpoDocR.options} 
+                                                disabled={fieldBpoDocR.isFormulaField}  
                                                 onchange={handleChangeBpoDocRight}
                                                 ></lightning-combobox>
                                             </template> 
@@ -1260,6 +1299,7 @@
                                         name={fieldOPL.apiName}
                                         label={fieldOPL.label}
                                         checked={fieldOPL.value}
+                                        disabled={fieldOPL.isFormulaField}
                                         onchange={handleChangeOptionLeft}
                                         ></lightning-input>
                                     </template>
@@ -1270,6 +1310,7 @@
                                         name={fieldOPL.apiName}
                                         label={fieldOPL.label}
                                         value={fieldOPL.value}
+                                        disabled={fieldOPL.isFormulaField}
                                         onchange={handleChangeOptionLeft}
                                         ></lightning-input>
                                     </template>
@@ -1289,6 +1330,7 @@
                                             name={fieldOPR.apiName}
                                             label={fieldOPR.label}
                                             checked={fieldOPR.value}
+                                            disabled={fieldOPR.isFormulaField}
                                             onchange={handleChangeOptionRight}
                                             ></lightning-input>
                                         </template>
@@ -1301,6 +1343,7 @@
                                                 name={fieldOPR.apiName}
                                                 label={fieldOPR.label}
                                                 value={fieldOPR.value}
+                                                disabled={fieldOPR.isFormulaField}
                                                 onchange={handleChangeOptionRight}
                                                 ></lightning-input>
                                             </template>
@@ -1310,7 +1353,8 @@
                                                 name={fieldOPR.apiName}
                                                 label={fieldOPR.label}
                                                 value={fieldOPR.value}
-                                                options={fieldOPR.options}   
+                                                options={fieldOPR.options}  
+                                                disabled={fieldOPR.isFormulaField} 
                                                 onchange={handleChangeOptionRight}
                                                 ></lightning-combobox>
                                             </template> 
