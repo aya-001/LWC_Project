@@ -61,43 +61,80 @@ public class TenantRequestFieldService {
 		List<TenantRequestSections__mdt> sections = [SELECT DeveloperName, Label__c, SortOrder__c  FROM TenantRequestSections__mdt ORDER BY SortOrder__c];
 
 		//Query fields with Product Sction
-		List<TenantRequestFields__mdt> fields = [SELECT DeveloperName,FieldName__c, ProductSection__r.DeveloperName, Column__c, SortOrder__c FROM ORDER BY ProductSection__r.SortOrder__c, SortOrder__c];
+		List<TenantRequestFields__mdt> fields = [SELECT DeveloperName,FieldName__c, ProductSection__r.DeveloperName, Column__c, SortOrder__c FROM TenantRequestFields__mdt ORDER BY ProductSection__r.SortOrder__c, SortOrder__c];
 
 		//Grout fields by Product Section
 		Map<String, List<TenantRequestFields__mdt>> fieldsGroupMap = new Map<String, List<TenantRequestFields__mdt>>();
-		for(List<TenantRequestFields__mdt> f : fields){
+		for(TenantRequestFields__mdt f : fields){
 			//define section name key to map
-			String sectionKey = f. ProductSection__r.DeveloperName;
+			String sectionKey = f.ProductSection__r.DeveloperName;
 
 			//if section key name does not exists in the Map, add it 
 			if(!fieldsGroupMap.containsKey(sectionKey)){
-				fieldsGroupMap.put(sectionKey, new <TenantRequestFields__mdt>());
+				fieldsGroupMap.put(sectionKey, new List<TenantRequestFields__mdt>());
 			}
 			//add List<TenantRequestFields__mdt> as value of Map
-			fieldsGroupMap.get(ectionKey).add(f);
+			fieldsGroupMap.get(sectionKey).add(f);
 
 		}
 
+		// Get schema describe map once
+    	Map<String, Schema.SObjectField> allExistFields = Schema.SObjectType.TenantRequest__c.fields.getMap();
+
+
 		//Create JSON object
-		for(TenantRequestSections__mdt sec : section){
+		for(TenantRequestSections__mdt sec : sections){
 
 			Map<String, Object> sectionMap = new Map<String, Object>();
 			sectionMap.put('sectionDeveloperName', sec.DeveloperName);
-			sectionMa.put('label', sec.Label__c);
+			sectionMap.put('label', sec.Label__c);
 
 			//List to assign fields on right, left side
 			List<Object> leftFields = new List<Object>();
 			List<Object> rightFields = new List<Object>();
+
 			if(fieldsGroupMap.containsKey(sec.DeveloperName)){
 				for(TenantRequestFields__mdt f : fieldsGroupMap.get(sec.DeveloperName)){
-					Map<String, Object> fieldNMap = new Map<String, Object>{'apiName' => f.fieldName__c, 'label' => describe.getLabel(), 'type' => enumToDataType(describe.getType()), 'isCheckboxField' => enumToDataType(describe.getType()) == 'checkbox', 'isPicklistField' => enumToDataType(describe.getType()) == 'picklist', 'options' => null,'isFormulaField' => true};
+					//check if fields API name exists in query fields from TenantRequest__c object
+					if(allExistFields.containsKey(f.FieldName__c)){
+						//Get field describe(details) with Schema.DescribeResult
+					    Schema.DescribeFieldResult describe = allExistFields.get(f.FieldName__c).getDescribe();
 
-					//assign left or right side of section
-					if(f.Column__c === 'Left'){
-						leftFields.add(fieldNMap);
-					}else if(f.Column__c === 'Right'){
-						rightFields.add(fieldNMap);
-				    } 
+						Map<String, Object> fieldNMap;
+
+						//check if the field is formula
+						if(describe.isCalculated() && !describe.isUpdateable() ){
+							fieldNMap = new Map<String, Object>{'apiName' => f.fieldName__c, 'label' => describe.getLabel(), 'type' => enumToDataType(describe.getType()), 'isCheckboxField' => enumToDataType(describe.getType()) == 'checkbox', 'isPicklistField' => enumToDataType(describe.getType()) == 'picklist', 'options' => null,'isFormulaField' => true};
+						}else{ 
+						//other than formula		
+							/* checkbox */
+							if(enumToDataType(describe.getType()) == 'checkbox'){
+								fieldNMap = new Map<String, Object>{'apiName' => f.fieldName__c, 'label' => describe.getLabel(), 'type' => enumToDataType(describe.getType()), 'isCheckboxField' => true, 'isPicklistField' => false, 'options' => null,'isFormulaField' => false};
+							}else if(enumToDataType(describe.getType()) == 'picklist'){
+							/* picklist */
+								/* List<Schema.PicklistEntry> P = describe.getPicklistValues(); */
+								//store option values in List
+								List<Map<String, String>> options = new List<Map<String, String>>();
+								for(Schema.PicklistEntry entry : describe.getPicklistValues()){
+									options.add(new Map<String, String>{'label' => entry.getLabel(), 'value' => entry.getValue()});
+								}
+								fieldNMap = new Map<String, Object>{'apiName' => f.fieldName__c, 'label' => describe.getLabel(), 'type' => enumToDataType(describe.getType()), 'isCheckboxField' => false, 'isPicklistField' => true, 'options' => options,'isFormulaField' => false};
+								
+							}else{
+								/* others */
+								fieldNMap = new Map<String, Object>{'apiName' => f.fieldName__c, 'label' => describe.getLabel(), 'type' => enumToDataType(describe.getType()), 'isCheckboxField' => false, 'isPicklistField' => false, 'options' => null,'isFormulaField' => false};
+							}
+						}
+						//assign left or right side of section
+						if(f.Column__c == 'Left'){
+							leftFields.add(fieldNMap);
+						}else if(f.Column__c == 'Right'){
+							rightFields.add(fieldNMap);
+						} 
+					}
+					
+			
+					
 				}
 			}
 
