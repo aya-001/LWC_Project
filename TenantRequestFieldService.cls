@@ -53,7 +53,7 @@ public class TenantRequestFieldService {
 	/* Below is retireval of fields for each Tenant product  */
 	/* Helper method */
 	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantSection(){
+	public static List<Map<String, Object>> getTenantSections(){
 
 		List<Map<String, Object>> results = new List<Map<String, Object>>();
 
@@ -87,12 +87,14 @@ public class TenantRequestFieldService {
 
 			Map<String, Object> sectionMap = new Map<String, Object>();
 			sectionMap.put('sectionDeveloperName', sec.DeveloperName);
+			sectionMap.put('sectionOrder', sec.SortOrder__c);
 			sectionMap.put('label', sec.Label__c);
 
 			//List to assign fields on right, left side
 			List<Object> leftFields = new List<Object>();
 			List<Object> rightFields = new List<Object>();
 
+			//check actual existing fields data to get datatype, option values
 			if(fieldsGroupMap.containsKey(sec.DeveloperName)){
 				for(TenantRequestFields__mdt f : fieldsGroupMap.get(sec.DeveloperName)){
 					//check if fields API name exists in query fields from TenantRequest__c object
