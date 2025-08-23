@@ -1,5 +1,6 @@
 import { LightningElement, api, track , wire} from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
+import getTenantSections from '@salesforce/apex/TenantRequestFieldService.getTenantSections';
 import getTenantBasicInfoLeft from '@salesforce/apex/TenantRequestFieldService.getTenantBasicInfoLeft';
 import getTenantBasicInfoRight from '@salesforce/apex/TenantRequestFieldService.getTenantBasicInfoRight';
 import getTenantSettingTypeLeft from '@salesforce/apex/TenantRequestFieldService.getTenantSettingTypeLeft';
@@ -36,6 +37,7 @@ export default class LwcTenantRequest extends LightningElement {
     fieldsBasicInfoLeft = [];
     fieldsBasicInfoRight = [];
     
+    fields = [];
     fieldInvoiceLeft = [];
     fieldInvoiceRight = [];
     fieldWFLeft = [];
@@ -123,6 +125,21 @@ export default class LwcTenantRequest extends LightningElement {
 
         }else if(error) {
             console.error('Error fetching fields:', error);
+        }
+    }
+
+    @wire(getTenantSections)
+    wiredTenantSections({error, data}){
+        if(data){
+            this.fields = data.map(f => {
+                return {
+                    ...f,
+                    value : this.var_TenantRequest__c[f.fieldsLeft.apiName] ?? null
+                };
+            });
+
+        }else if(error){
+            console.error('Error fetching fields', error);
         }
     }
 
