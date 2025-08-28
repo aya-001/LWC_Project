@@ -1,5 +1,5 @@
 <template>
-    <lightning-card title="テナント設定依頼　詳細">
+    <lightning-card title="">
         <div class="slds-p-around_small">
             <!-- Record page -->
             <template if:true={isRecordPage}>
@@ -151,19 +151,27 @@
                                 <!-- left side of grid -->
                                 <div class="slds-col slds-size_1-of-2">
                                     <!-- loop fields from custom metadata -->
-                                    <template for:each={fieldInvoiceLeft} for:item="fieldIVL">
-                                        <div key={fieldIVL.apiName}>
-                                            <lightning-input-field field-name={fieldIVL.apiName}></lightning-input-field>
+                                    <template for:each={fields} for:item="field">
+                                        <div key={field}>
+                                            <template for:each={field.fieldsLeft} for:item="left">
+                                                <div key={left.apiName}>
+                                                    <lightning-input-field field-name={left.apiName}></lightning-input-field>
+                                                </div>
+                                            </template>
                                         </div>
                                     </template>
                                 </div>
                                 <!-- right side of grid -->
                                 <div class="slds-col slds-size_1-of-2 slds-p-top_small">
                                         <!-- loop fields from custom metadata -->
-                                        <template for:each={fieldInvoiceRight} for:item="fieldIVR">
+                                        <template for:each={fields} for:item="field">
                                         <!-- wrap colums in right side -->
-                                            <div key={fieldIVR.apiName} class="slds-grid slds-wrap">
-                                                <lightning-input-field field-name={fieldIVR.apiName}></lightning-input-field>
+                                            <div key={field} class="slds-grid slds-wrap">
+                                                <template for:each={field.fieldsRight} for:item="right">
+                                                    <div key={right.apiName}>
+                                                        <lightning-input-field field-name={right.apiName}></lightning-input-field>
+                                                    </div>
+                                                </template>
                                             </div>
                                         </template>
                                 </div>
@@ -508,863 +516,157 @@
                         
                 </lightning-record-edit-form>
             </template>
+
+            <!-- change log -->
+            <template if:true={difference.length}>
+                <!-- Section Title  -->
+                <h3 class="slds-section__title">
+                    <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
+                    <lightning-icon
+                        icon-name="utility:switch"
+                        alternative-text="Switch"
+                        size="xx-small"
+                        class="slas-button__icon slds-button__icon_left"    
+                    ></lightning-icon>
+                    <span class="slds-truncate" title="Section Title">変更概要</span>
+                    </button>
+                </h3>
+
+                <ul class="slds-p-left_medium">
+                    <template for:each={difference} for:item="diff">
+                        <li key={diff.apiName}>
+                            <span>{diff.label}が {diff.oldValue} から {diff.newValue} に変更されました</span>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+
+
+            <!-- Change History -->
+            <template if:true={variable}>
+            <div class="slds-p-around_small"></div>
+            </template>
     
             <!-- Screen Flow -->
             <template if:false={isRecordPage}>
 
                 <!-- バクラク債権・債務管理 -->
-                <div class="slds-section slds-is-open slds-p_small">
-                    <h3 class="slds-section__title">
-                        <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                        <lightning-icon
-                            icon-name="utility:switch"
-                            alternative-text="Switch"
-                            size="xx-small"
-                            class="slas-button__icon slds-button__icon_left"    
-                        ></lightning-icon>
-                        <span class="slds-truncate" title="Section Title">バクラク債権・債務管理</span>
-                        </button>
-                    </h3>
-
-                    
-                    
-                    <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                        <!-- left side of grid -->
-                        <div class="slds-col slds-size_1-of-2">
-                            <!-- loop fields from custom metadata -->
-                            <template for:each={fieldInvoiceLeft} for:item="fieldIVL">
-                                <div key={fieldIVL.apiName}>
-                                    <!-- is CHeckbox --> <!-- var_TenantRequest.fieldIVL.apiName -->
-                                    <template if:true={fieldIVL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldIVL.type}
-                                        name={fieldIVL.apiName}
-                                        label={fieldIVL.label}
-                                        checked={fieldIVL.value}
-                                        disabled={fieldIVL.isFormulaField}
-                                        onchange={handleChangeInvoiceLeft}
-                                        ></lightning-input>
+                <div class="slds-section slds-is-open">
+                    <template for:each={fields} for:item="field"><!-- slds-p-vertical_small -->
+                        <div key={field.sectionOrder}>
+                            <!-- Section Title  -->
+                            <h3 class="slds-section__title">
+                                <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
+                                <lightning-icon
+                                    icon-name="utility:switch"
+                                    alternative-text="Switch"
+                                    size="xx-small"
+                                    class="slas-button__icon slds-button__icon_left"    
+                                ></lightning-icon>
+                                <span class="slds-truncate" title="Section Title">{field.label}</span>
+                                </button>
+                            </h3>
+                            <!-- Product Fields Left Right side -->
+                            <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-vertical_small">
+                                <!-- left side of grid -->
+                                <div class="slds-col slds-size_1-of-2">
+                                    <!-- loop fields from custom metadata -->
+                                    <template for:each={field.fieldsLeft} for:item="leftField">
+                                        <div key={leftField.apiName}>
+                                            <!-- is CHeckbox --> 
+                                            <template if:true={leftField.isCheckboxField}>
+                                                <lightning-input 
+                                                type={leftField.type}
+                                                name={leftField.apiName}
+                                                label={leftField.label}
+                                                checked={leftField.value}
+                                                disabled={leftField.isFormulaField}
+                                                onchange={handleChangeFlowInputs}
+                                                ></lightning-input>
+                                            </template>
+                                            
+                                            <!-- not Checkbox -->
+                                            <template if:false={leftField.isCheckboxField}>
+                                                <!-- not Picklist -->
+                                                <template if:false={leftField.isPicklistField}>
+                                                    <lightning-input 
+                                                    type={leftField.type}
+                                                    name={leftField.apiName}
+                                                    label={leftField.label}
+                                                    value={leftField.value}
+                                                    disabled={leftField.isFormulaField}
+                                                    onchange={handleChangeFlowInputs}
+                                                    ></lightning-input>
+                                                </template>
+                                                <!-- if picklist -->
+                                                <template if:true={leftField.isPicklistField}>
+                                                    <lightning-combobox
+                                                    name={leftField.apiName}
+                                                    label={leftField.label}
+                                                    value={leftField.value}
+                                                    options={leftField.options}  
+                                                    disabled={leftField.isFormulaField} 
+                                                    onchange={handleChangeFlowInputs}
+                                                    ></lightning-combobox>
+                                                </template>
+                                            </template>
+                                        </div>
                                     </template>
                                     
-                                    <!-- not Checkbox -->
-                                    <template if:false={fieldIVL.isCheckboxField}>
-                                        <!-- not Picklist -->
-                                        <template if:false={fieldIVL.isPicklistField}>
-                                            <lightning-input 
-                                            type={fieldIVL.type}
-                                            name={fieldIVL.apiName}
-                                            label={fieldIVL.label}
-                                            value={fieldIVL.value}
-                                            disabled={fieldIVL.isFormulaField}
-                                            onchange={handleChangeInvoiceLeft}
-                                            ></lightning-input>
-                                        </template>
-                                        <!-- if picklist -->
-                                        <template if:true={fieldIVL.isPicklistField}>
-                                            <lightning-combobox
-                                            name={fieldIVL.apiName}
-                                            label={fieldIVL.label}
-                                            value={fieldIVL.value}
-                                            options={fieldIVL.options}  
-                                            disabled={fieldIVL.isFormulaField} 
-                                            onchange={handleChangeInvoiceLeft}
-                                            ></lightning-combobox>
-                                        </template>
-                                    </template>
-                                    
+                                               
                                 </div>
-                            </template>
-                        </div>
-                        <!-- right side of grid -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldInvoiceRight} for:item="fieldIVR">
-                                <!-- wrap colums in right side -->
-                                    <div key={fieldIVR} class="slds-grid slds-wrap">
-                                        <!-- is CHeckbox -->
-                                        <template if:true={fieldIVR.isCheckboxField}>
-                                            <lightning-input 
-                                            type={fieldIVR.type}
-                                            name={fieldIVR.apiName}
-                                            label={fieldIVR.label}
-                                            checked={fieldIVR.value}
-                                            disabled={fieldIVR.isFormulaField}
-                                            onchange={handleChangeInvoiceRight}
-                                            ></lightning-input>
-                                        </template>
-                                        <!-- not Checkbox -->
-                                        <template if:false={fieldIVR.isCheckboxField}>
-                                            <!-- not Picklist -->
-                                            <template if:false={fieldIVR.isPicklistField}>
+                                <!-- right side of grid -->
+                                <div class="slds-col slds-size_1-of-2">
+                                    <!-- loop fields from custom metadata -->
+                                    <!-- wrap colums in right side -->
+                                    <template for:each={field.fieldsRight} for:item="rightField">
+                                        <div key={rightField.apiName}>
+                                            <!-- is CHeckbox -->
+                                            <template if:true={rightField.isCheckboxField}>
                                                 <lightning-input 
-                                                type={fieldIVR.type}
-                                                name={fieldIVR.apiName}
-                                                label={fieldIVR.label}
-                                                value={fieldIVR.value}
-                                                disabled={fieldIVR.isFormulaField}
-                                                onchange={handleChangeInvoiceRight}
+                                                type={rightField.type}
+                                                name={rightField.apiName}
+                                                label={rightField.label}
+                                                checked={rightField.value}
+                                                disabled={rightField.isFormulaField}
+                                                onchange={handleChangeFlowInputs}
                                                 ></lightning-input>
                                             </template>
-                                            <!-- if picklist -->
-                                            <template if:true={fieldIVR.isPicklistField}>
-                                                <lightning-combobox
-                                                name={fieldIVR.apiName}
-                                                label={fieldIVR.label}
-                                                value={fieldIVR.value}
-                                                options={fieldIVR.options}
-                                                disabled={fieldIVR.isFormulaField}   
-                                                onchange={handleChangeInvoiceRight}
-                                                ></lightning-combobox>
+                                            <!-- not Checkbox -->
+                                            <template if:false={rightField.isCheckboxField}>
+                                                <!-- not Picklist -->
+                                                <template if:false={rightField.isPicklistField}>
+                                                    <lightning-input 
+                                                    type={rightField.type}
+                                                    name={rightField.apiName}
+                                                    label={rightField.label}
+                                                    value={rightField.value}
+                                                    disabled={rightField.isFormulaField}
+                                                    onchange={handleChangeFlowInputs}
+                                                    ></lightning-input>
+                                                </template>
+                                                <!-- if picklist -->
+                                                <template if:true={rightField.isPicklistField}>
+                                                    <lightning-combobox
+                                                    name={rightField.apiName}
+                                                    label={rightField.label}
+                                                    value={rightField.value}
+                                                    options={rightField.options}
+                                                    disabled={rightField.isFormulaField}   
+                                                    onchange={handleChangeFlowInputs}
+                                                    ></lightning-combobox>
+                                                </template>
                                             </template>
-                                        </template>
-                                    </div>
-                                </template>
-                        </div>
-                    </div>
-                </div>
-                    
-                <!-- バクラク申請・経費精算 -->
-                <div class="slds-section slds-is-open slds-p_small">
-                    <h3 class="slds-section__title">
-                        <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                        <lightning-icon
-                            icon-name="utility:switch"
-                            alternative-text="Switch"
-                            size="xx-small"
-                            class="slas-button__icon slds-button__icon_left"    
-                        ></lightning-icon>
-                        <span class="slds-truncate" title="Section Title">バクラク申請・経費精算</span>
-                        </button>
-                    </h3>
-
-                    
-
-                    <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                        <!-- left side of grid -->
-                        <div class="slds-col slds-size_1-of-2">
-                            <!-- loop fields from custom metadata -->
-                            <template for:each={fieldWFLeft} for:item="fieldWFL">
-                                <div key={fieldWFL} class="">
-                                     <!-- is CHeckbox -->
-                                        <template if:true={fieldWFL.isCheckboxField}>
-                                            <lightning-input 
-                                            type={fieldWFL.type}
-                                            name={fieldWFL.apiName}
-                                            label={fieldWFL.label}
-                                            checked={fieldWFL.value}
-                                            disabled={fieldWFL.isFormulaField}
-                                            onchange={handleChangeWFLeft}
-                                            ></lightning-input>
-                                        </template>
-                                        <!-- not Checkbox -->
-                                        <template if:false={fieldWFL.isCheckboxField}>
-                                            <lightning-input 
-                                            type={fieldWFL.type}
-                                            name={fieldWFL.apiName}
-                                            label={fieldWFL.label}
-                                            value={fieldWFL.value}
-                                            disabled={fieldWFL.isFormulaField}
-                                            onchange={handleChangeWFLeft}
-                                            ></lightning-input>
-                                        </template>
+                                        </div>
+                                    </template>
+                                            
                                 </div>
-                            </template>
-                        </div>
-                        <!-- right side of grid -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldWFRight} for:item="fieldWFR">
-                                <!-- wrap colums in right side -->
-                                    <div key={fieldWFR} class="slds-grid slds-wrap">
-                                        <!-- is CHeckbox -->
-                                        <template if:true={fieldWFR.isCheckboxField}>
-                                            <lightning-input 
-                                            type={fieldWFR.type}
-                                            name={fieldWFR.apiName}
-                                            label={fieldWFR.label}
-                                            checked={fieldWFR.value}
-                                            disabled={fieldWFR.isFormulaField}
-                                            onchange={handleChangeWFRight}
-                                            ></lightning-input>
-                                        </template>
-                                        <!-- not Checkbox -->
-                                        <template if:false={fieldWFR.isCheckboxField}>
-                                            <!-- not Picklist -->
-                                            <template if:false={fieldWFR.isPicklistField}>
-                                                <lightning-input 
-                                                type={fieldWFR.type}
-                                                name={fieldWFR.apiName}
-                                                label={fieldWFR.label}
-                                                value={fieldWFR.value}
-                                                disabled={fieldWFR.isFormulaField}
-                                                onchange={handleChangeWFRight}
-                                                ></lightning-input>
-                                            </template>
-                                            <!-- if picklist -->
-                                            <template if:true={fieldWFR.isPicklistField}>
-                                                <lightning-combobox
-                                                name={fieldWFR.apiName}
-                                                label={fieldWFR.label}
-                                                value={fieldWFR.value}
-                                                options={fieldWFR.options} 
-                                                disabled={fieldWFR.isFormulaField}  
-                                                onchange={handleChangeWFRight}
-                                                ></lightning-combobox>
-                                            </template>
-                                        </template>
-                                    </div>
-                                </template>
-                        </div>
-                    </div>
-            
-                </div>
-
-
-                <!-- バクラク電子帳簿保存 -->
-                <div class="slds-section slds-is-open slds-p_small">
-                    <h3 class="slds-section__title">
-                        <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                        <lightning-icon
-                            icon-name="utility:switch"
-                            alternative-text="Switch"
-                            size="xx-small"
-                            class="slas-button__icon slds-button__icon_left"    
-                        ></lightning-icon>
-                        <span class="slds-truncate" title="Section Title">バクラク電子帳簿保存</span>
-                        </button>
-                    </h3>
-
-                    
-
-                    <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                        <!-- left side of grid -->
-                        <div class="slds-col slds-size_1-of-2">
-                            <!-- loop fields from custom metadata -->
-                            <template for:each={fieldBoxLeft} for:item="fieldBXL">
-                                <div key={fieldBXL}>
-                                    <!-- is CHeckbox -->
-                                    <template if:true={fieldBXL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldBXL.type}
-                                        name={fieldBXL.apiName}
-                                        label={fieldBXL.label}
-                                        checked={fieldBXL.value}
-                                        disabled={fieldBXL.isFormulaField}
-                                        onchange={handleChangeBoxLeft}
-                                        ></lightning-input>
-                                    </template>
-                                    <!-- not Checkbox -->
-                                    <template if:false={fieldBXL.isCheckboxField}>
-                                        <!-- not Picklist -->
-                                        <template if:false={fieldBXL.isPicklistField}>
-                                            <lightning-input 
-                                            type={fieldBXL.type}
-                                            name={fieldBXL.apiName}
-                                            label={fieldBXL.label}
-                                            value={fieldBXL.value}
-                                            disabled={fieldBXL.isFormulaField}
-                                            onchange={handleChangeBoxLeft}
-                                            ></lightning-input>
-                                        </template>
-                                        <template if:true={fieldBXL.isPicklistField}>
-                                            <!-- if picklist -->
-                                            <lightning-combobox
-                                            name={fieldBXL.apiName}
-                                            label={fieldBXL.label}
-                                            value={fieldBXL.value}
-                                            options={fieldBXL.options} 
-                                            disabled={fieldBXL.isFormulaField}  
-                                            onchange={handleChangeBoxLeft}
-                                            ></lightning-combobox>
-                                        </template> 
-                                    </template>
-                                       
-                                </div>
-                            </template>
-                        </div>
-                        <!-- right side of grid -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldBoxRight} for:item="fieldBXR">
-                                <!-- wrap colums in right side -->
-                                    <div key={fieldBXR} class="slds-grid slds-wrap">
-                                        <!-- is CHeckbox -->
-                                        <template if:true={fieldBXR.isCheckboxField}>
-                                            <lightning-input 
-                                            type={fieldBXR.type}
-                                            name={fieldBXR.apiName}
-                                            label={fieldBXR.label}
-                                            checked={fieldBXR.value}
-                                            disabled={fieldBXR.isFormulaField}
-                                            onchange={handleChangeBoxRight}
-                                            ></lightning-input>
-                                        </template>
-                                        <!-- not Checkbox -->
-                                        <template if:false={fieldBXR.isCheckboxField}>
-                                            <!-- not Picklist -->
-                                            <template if:false={fieldBXR.isPicklistField}>
-                                                <lightning-input 
-                                                type={fieldBXR.type}
-                                                name={fieldBXR.apiName}
-                                                label={fieldBXR.label}
-                                                value={fieldBXR.value}
-                                                disabled={fieldBXR.isFormulaField}
-                                                onchange={handleChangeBoxRight}
-                                                ></lightning-input>
-                                            </template>
-                                            <!-- if picklist -->
-                                            <template if:true={fieldBXR.isPicklistField}>
-                                                <lightning-combobox
-                                                name={fieldBXR.apiName}
-                                                label={fieldBXR.label}
-                                                value={fieldBXR.value}
-                                                options={fieldBXR.options}
-                                                disabled={fieldBXR.isFormulaField}   
-                                                onchange={handleChangeBoxRight}
-                                                ></lightning-combobox>
-                                            </template>
-                                                
-                                        </template>
-                                    </div>
-                                </template>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- バクラクビジネスカード -->
-                <div class="slds-section slds-is-open slds-p_small">
-                    <h3 class="slds-section__title">
-                        <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                        <lightning-icon
-                            icon-name="utility:switch"
-                            alternative-text="Switch"
-                            size="xx-small"
-                            class="slas-button__icon slds-button__icon_left"    
-                        ></lightning-icon>
-                        <span class="slds-truncate" title="Section Title">バクラクビジネスカード</span>
-                        </button>
-                    </h3>
-
-                    
-
-                    <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                        <!-- left side of grid -->
-                        <div class="slds-col slds-size_1-of-2">
-                            <!-- loop fields from custom metadata -->
-                            <template for:each={fieldCardLeft} for:item="fieldCDL">
-                                <div key={fieldCDL}>
-                                    <!-- is CHeckbox -->
-                                    <template if:true={fieldCDL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldCDL.type}
-                                        name={fieldCDL.apiName}
-                                        label={fieldCDL.label}
-                                        checked={fieldCDL.value}
-                                        disabled={fieldCDL.isFormulaField}
-                                        onchange={handleChangeCardLeft}
-                                        ></lightning-input>
-                                    </template>
-                                    <!-- not Checkbox -->
-                                    <template if:false={fieldCDL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldCDL.type}
-                                        name={fieldCDL.apiName}
-                                        label={fieldCDL.label}
-                                        value={fieldCDL.value}
-                                        disabled={fieldCDL.isFormulaField}
-                                        onchange={handleChangeCardLeft}
-                                        ></lightning-input>
-                                    </template>
-                                </div>
-                            </template>
-                        </div>
-                        <!-- right side of grid -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- バクラク請求書発行 -->
-                <div class="slds-section slds-is-open slds-p_small">
-                    <h3 class="slds-section__title">
-                        <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                        <lightning-icon
-                            icon-name="utility:switch"
-                            alternative-text="Switch"
-                            size="xx-small"
-                            class="slas-button__icon slds-button__icon_left"    
-                        ></lightning-icon>
-                        <span class="slds-truncate" title="Section Title">バクラク請求書発行</span>
-                        </button>
-                    </h3>
-
-                
-
-                    <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                        <!-- left side of grid -->
-                        <div class="slds-col slds-size_1-of-2">
-                            <!-- loop fields from custom metadata -->
-                            <template for:each={fieldDocissueLeft} for:item="fieldDIL">
-                            <div key={fieldDIL}>
-                                <!-- is CHeckbox -->
-                                <template if:true={fieldDIL.isCheckboxField}>
-                                    <lightning-input 
-                                    type={fieldDIL.type}
-                                    name={fieldDIL.apiName}
-                                    label={fieldDIL.label}
-                                    checked={fieldDIL.value}
-                                    disabled={fieldDIL.isFormulaField}
-                                    onchange={handleChangeDocissueLeft}
-                                    ></lightning-input>
-                                </template>
-                                <!-- not Checkbox -->
-                                <template if:false={fieldDIL.isCheckboxField}>
-                                    <lightning-input 
-                                    type={fieldDIL.type}
-                                    name={fieldDIL.apiName}
-                                    label={fieldDIL.label}
-                                    value={fieldDIL.value}
-                                    disabled={fieldDIL.isFormulaField}
-                                    onchange={handleChangeDocissueLeft}
-                                    ></lightning-input>
-                                </template>
                             </div>
-                        </template>
-                        </div>
-                        <!-- right side of grid -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                            <!-- loop fields from custom metadata -->
-                            <template for:each={fieldDocissueRight} for:item="fieldDIR">
-                            <!-- wrap colums in right side -->
-                                <div key={fieldDIR} class="slds-grid slds-wrap">
-                                    <!-- is CHeckbox -->
-                                    <template if:true={fieldDIR.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldDIR.type}
-                                        name={fieldDIR.apiName}
-                                        label={fieldDIR.label}
-                                        checked={fieldDIR.value}
-                                        disabled={fieldDIR.isFormulaField}
-                                        onchange={handleChangeDocissueRight}
-                                        ></lightning-input>
-                                    </template>
-                                    <!-- not Checkbox -->
-                                    <template if:false={fieldDIR.isCheckboxField}>
-                                        <!-- not Picklist -->
-                                        <template if:false={fieldDIR.isPicklistField}>
-                                            <lightning-input 
-                                            type={fieldDIR.type}
-                                            name={fieldDIR.apiName}
-                                            label={fieldDIR.label}
-                                            value={fieldDIR.value}
-                                            disabled={fieldDIR.isFormulaField}
-                                            onchange={handleChangeDocissueRight}
-                                            ></lightning-input>
-                                        </template>
-                                        <!-- if picklist -->
-                                        <template if:true={fieldDIR.isPicklistField}>
-                                            <lightning-combobox
-                                            name={fieldDIR.apiName}
-                                            label={fieldDIR.label}
-                                            value={fieldDIR.value}
-                                            options={fieldDIR.options} 
-                                            disabled={fieldDIR.isFormulaField}  
-                                            onchange={handleChangeDocissueRight}
-                                            ></lightning-combobox>
-                                        </template> 
-                                    </template>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
 
+                        </div>
+                    </template>  
                 </div>
-
-                <!-- API利用 -->
-                <div class="slds-section slds-is-open slds-p_small">
-                    <h3 class="slds-section__title">
-                        <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                        <lightning-icon
-                            icon-name="utility:switch"
-                            alternative-text="Switch"
-                            size="xx-small"
-                            class="slas-button__icon slds-button__icon_left"    
-                        ></lightning-icon>
-                        <span class="slds-truncate" title="Section Title">API利用</span>
-                        </button>
-                    </h3>
-
-                    
-
-                    <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                        <!-- left side of grid -->
-                        <div class="slds-col slds-size_1-of-2">
-                            <!-- loop fields from custom metadata -->
-                            <template for:each={fieldAPILeft} for:item="fieldAPIL">
-                                <div key={fieldAPIL}>
-                                    <!-- is CHeckbox -->
-                                    <template if:true={fieldAPIL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldAPIL.type}
-                                        name={fieldAPIL.apiName}
-                                        label={fieldAPIL.label}
-                                        checked={fieldAPIL.value}
-                                        disabled={fieldAPIL.isFormulaField}
-                                        onchange={handleChangeAPILeft}
-                                        ></lightning-input>
-                                    </template>
-                                    <!-- not Checkbox -->
-                                    <template if:false={fieldAPIL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldAPIL.type}
-                                        name={fieldAPIL.apiName}
-                                        label={fieldAPIL.label}
-                                        value={fieldAPIL.value}
-                                        disabled={fieldAPIL.isFormulaField}
-                                        onchange={handleChangeAPILeft}
-                                        ></lightning-input>
-                                    </template>
-                                </div>
-                            </template>
-                        </div>
-                        <!-- right side of grid -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldAPIRight} for:item="fieldAPIR">
-                                <!-- wrap colums in right side -->
-                                    <div key={fieldAPIR} class="slds-grid slds-wrap">
-                                        <!-- is CHeckbox -->
-                                        <template if:true={fieldAPIR.isCheckboxField}>
-                                            <lightning-input 
-                                            type={fieldAPIR.type}
-                                            name={fieldAPIR.apiName}
-                                            label={fieldAPIR.label}
-                                            checked={fieldAPIR.value}
-                                            disabled={fieldAPIR.isFormulaField}
-                                            onchange={handleChangeAPIRight}
-                                            ></lightning-input>
-                                        </template>
-                                        <!-- not Checkbox -->
-                                        <template if:false={fieldAPIR.isCheckboxField}>
-                                            <!-- not Picklist -->
-                                            <template if:false={fieldAPIR.isPicklistField}>
-                                                <lightning-input 
-                                                type={fieldAPIR.type}
-                                                name={fieldAPIR.apiName}
-                                                label={fieldAPIR.label}
-                                                value={fieldAPIR.value}
-                                                disabled={fieldAPIR.isFormulaField}
-                                                onchange={handleChangeAPIRight}
-                                                ></lightning-input>
-                                            </template>
-                                            <!-- if picklist -->
-                                            <template if:true={fieldAPIR.isPicklistField}>
-                                                <lightning-combobox
-                                                name={fieldAPIR.apiName}
-                                                label={fieldAPIR.label}
-                                                value={fieldAPIR.value}
-                                                options={fieldAPIR.options}  
-                                                disabled={fieldAPIR.isFormulaField} 
-                                                onchange={handleChangeAPIRight}
-                                                ></lightning-combobox>
-                                            </template> 
-                                        </template>
-                                    </div>
-                                </template>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- 勤怠-->
-                <div class="slds-section slds-is-open slds-p_small">
-                    <h3 class="slds-section__title">
-                        <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                        <lightning-icon
-                            icon-name="utility:switch"
-                            alternative-text="Switch"
-                            size="xx-small"
-                            class="slas-button__icon slds-button__icon_left"    
-                        ></lightning-icon>
-                        <span class="slds-truncate" title="Section Title">勤怠</span>
-                        </button>
-                    </h3>
-
-                    
-
-                    <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                        <!-- left side of grid -->
-                        <div class="slds-col slds-size_1-of-2">
-                            <!-- loop fields from custom metadata -->
-                            <template for:each={fieldAttendanceLeft} for:item="fieldADL">
-                                <div key={fieldADL}>
-                                    <!-- is CHeckbox -->
-                                    <template if:true={fieldADL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldADL.type}
-                                        name={fieldADL.apiName}
-                                        label={fieldADL.label}
-                                        checked={fieldADL.value}
-                                        disabled={fieldADL.isFormulaField}
-                                        onchange={handleChangeAttendanceLeft}
-                                        ></lightning-input>
-                                    </template>
-                                    <!-- not Checkbox -->
-                                    <template if:false={fieldADL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldADL.type}
-                                        name={fieldADL.apiName}
-                                        label={fieldADL.label}
-                                        value={fieldADL.value}
-                                        disabled={fieldADL.isFormulaField}
-                                        onchange={handleChangeAttendanceLeft}
-                                        ></lightning-input>
-                                    </template>
-                                </div>
-                            </template>
-                        </div>
-                        <!-- right side of grid -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldAttendanceRight} for:item="fieldADR">
-                                <!-- wrap colums in right side -->
-                                    <div key={fieldADR} class="slds-grid slds-wrap">
-                                        <!-- is CHeckbox -->
-                                        <template if:true={fieldADR.isCheckboxField}>
-                                            <lightning-input 
-                                            type={fieldADR.type}
-                                            name={fieldADR.apiName}
-                                            label={fieldADR.label}
-                                            checked={fieldADR.value}
-                                            disabled={fieldADR.isFormulaField}
-                                            onchange={handleChangeAttendanceRight}
-                                            ></lightning-input>
-                                        </template>
-                                        <template if:false={fieldADR.isCheckboxField}>
-                                            <!-- not Picklist -->
-                                            <template if:false={fieldADR.isPicklistField}>
-                                                <lightning-input 
-                                                type={fieldADR.type}
-                                                name={fieldADR.apiName}
-                                                label={fieldADR.label}
-                                                value={fieldADR.value}
-                                                disabled={fieldADR.isFormulaField}
-                                                onchange={handleChangeAttendanceRight}
-                                                ></lightning-input>
-                                            </template>
-                                            <!-- if picklist -->
-                                            <template if:true={fieldADR.isPicklistField}>
-                                                <lightning-combobox
-                                                name={fieldADR.apiName}
-                                                label={fieldADR.label}
-                                                value={fieldADR.value}
-                                                options={fieldADR.options} 
-                                                disabled={fieldADR.isFormulaField}  
-                                                onchange={handleChangeAttendanceRight}
-                                                ></lightning-combobox>
-                                            </template> 
-                                        </template>
-                                    </div>
-                                </template>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <!-- 受領代行 -->
-                <div class="slds-section slds-is-open slds-p_small">
-                    <h3 class="slds-section__title">
-                        <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                        <lightning-icon
-                            icon-name="utility:switch"
-                            alternative-text="Switch"
-                            size="xx-small"
-                            class="slas-button__icon slds-button__icon_left"    
-                        ></lightning-icon>
-                        <span class="slds-truncate" title="Section Title">受領代行</span>
-                        </button>
-                    </h3>
-
                 
-
-                    <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                        <!-- left side of grid -->
-                        <div class="slds-col slds-size_1-of-2">
-                            <!-- loop fields from custom metadata -->
-                            <template for:each={fieldBpoDocLeft} for:item="fieldBpoDocL">
-                                <div key={fieldBpoDocL}>
-                                    <!-- is CHeckbox -->
-                                    <template if:true={fieldBpoDocL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldBpoDocL.type}
-                                        name={fieldBpoDocL.apiName}
-                                        label={fieldBpoDocL.label}
-                                        checked={fieldBpoDocL.value}
-                                        disabled={fieldBpoDocL.isFormulaField}
-                                        onchange={handleChangeBpoDocLeft}
-                                        ></lightning-input>
-                                    </template>
-                                    <!-- not Checkbox -->
-                                    <template if:false={fieldBpoDocL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldBpoDocL.type}
-                                        name={fieldBpoDocL.apiName}
-                                        label={fieldBpoDocL.label}
-                                        value={fieldBpoDocL.value}
-                                        disabled={fieldBpoDocL.isFormulaField}
-                                        onchange={handleChangeBpoDocLeft}
-                                        ></lightning-input>
-                                    </template>
-                                </div>
-                            </template>
-                        </div>
-                        <!-- right side of grid -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldBpoDocRight} for:item="fieldBpoDocR">
-                                <!-- wrap colums in right side -->
-                                    <div key={fieldBpoDocR} class="slds-grid slds-wrap">
-                                        <!-- is CHeckbox -->
-                                        <template if:true={fieldBpoDocR.isCheckboxField}>
-                                            <lightning-input 
-                                            type={fieldBpoDocR.type}
-                                            name={fieldBpoDocR.apiName}
-                                            label={fieldBpoDocR.label}
-                                            checked={fieldBpoDocR.value}
-                                            disabled={fieldBpoDocR.isFormulaField}
-                                            onchange={handleChangeBpoDocRight}
-                                            ></lightning-input>
-                                        </template>
-                                        <!-- not Checkbox -->
-                                        <template if:false={fieldBpoDocR.isCheckboxField}>
-                                            <!-- not Picklist -->
-                                            <template if:false={fieldBpoDocR.isPicklistField}>
-                                                <lightning-input 
-                                                type={fieldBpoDocR.type}
-                                                name={fieldBpoDocR.apiName}
-                                                label={fieldBpoDocR.label}
-                                                value={fieldBpoDocR.value}
-                                                disabled={fieldBpoDocR.isFormulaField}
-                                                onchange={handleChangeBpoDocRight}
-                                                ></lightning-input>
-                                            </template>
-                                            <!-- if picklist -->
-                                            <template if:true={fieldBpoDocR.isPicklistField}>
-                                                <lightning-combobox
-                                                name={fieldBpoDocR.apiName}
-                                                label={fieldBpoDocR.label}
-                                                value={fieldBpoDocR.value}
-                                                options={fieldBpoDocR.options} 
-                                                disabled={fieldBpoDocR.isFormulaField}  
-                                                onchange={handleChangeBpoDocRight}
-                                                ></lightning-combobox>
-                                            </template> 
-                                        </template>
-                                    </div>
-                                </template>
-                        </div>
-                    </div>
-
-                </div>
-
-                
-                <!-- 共通管理オプション -->
-                <div class="slds-section slds-is-open slds-p_small">
-                    <h3 class="slds-section__title">
-                        <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                        <lightning-icon
-                            icon-name="utility:switch"
-                            alternative-text="Switch"
-                            size="xx-small"
-                            class="slas-button__icon slds-button__icon_left"    
-                        ></lightning-icon>
-                        <span class="slds-truncate" title="Section Title">共通管理オプション</span>
-                        </button>
-                    </h3>
-
-                    
-
-                    <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                        <!-- left side of grid -->
-                        <div class="slds-col slds-size_1-of-2">
-                            <!-- loop fields from custom metadata -->
-                            <template for:each={fieldOptionLeft} for:item="fieldOPL">
-                                <div key={fieldOPL}>
-                                    <!-- is CHeckbox -->
-                                    <template if:true={fieldOPL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldOPL.type}
-                                        name={fieldOPL.apiName}
-                                        label={fieldOPL.label}
-                                        checked={fieldOPL.value}
-                                        disabled={fieldOPL.isFormulaField}
-                                        onchange={handleChangeOptionLeft}
-                                        ></lightning-input>
-                                    </template>
-                                    <!-- not Checkbox -->
-                                    <template if:false={fieldOPL.isCheckboxField}>
-                                        <lightning-input 
-                                        type={fieldOPL.type}
-                                        name={fieldOPL.apiName}
-                                        label={fieldOPL.label}
-                                        value={fieldOPL.value}
-                                        disabled={fieldOPL.isFormulaField}
-                                        onchange={handleChangeOptionLeft}
-                                        ></lightning-input>
-                                    </template>
-                                </div>
-                            </template>
-                        </div>
-                        <!-- right side of grid -->
-                        <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldOptionRight} for:item="fieldOPR">
-                                <!-- wrap colums in right side -->
-                                    <div key={fieldOPR} class="slds-grid slds-wrap">
-                                        <!-- is CHeckbox -->
-                                        <template if:true={fieldOPR.isCheckboxField}>
-                                            <lightning-input 
-                                            type={fieldOPR.type}
-                                            name={fieldOPR.apiName}
-                                            label={fieldOPR.label}
-                                            checked={fieldOPR.value}
-                                            disabled={fieldOPR.isFormulaField}
-                                            onchange={handleChangeOptionRight}
-                                            ></lightning-input>
-                                        </template>
-                                        <!-- not Checkbox -->
-                                        <template if:false={fieldOPR.isCheckboxField}>
-                                            <!-- not Picklist -->
-                                            <template if:false={fieldOPR.isPicklistField}>
-                                                <lightning-input 
-                                                type={fieldOPR.type}
-                                                name={fieldOPR.apiName}
-                                                label={fieldOPR.label}
-                                                value={fieldOPR.value}
-                                                disabled={fieldOPR.isFormulaField}
-                                                onchange={handleChangeOptionRight}
-                                                ></lightning-input>
-                                            </template>
-                                            <!-- if picklist -->
-                                            <template if:true={fieldOPR.isPicklistField}>
-                                                <lightning-combobox
-                                                name={fieldOPR.apiName}
-                                                label={fieldOPR.label}
-                                                value={fieldOPR.value}
-                                                options={fieldOPR.options}  
-                                                disabled={fieldOPR.isFormulaField} 
-                                                onchange={handleChangeOptionRight}
-                                                ></lightning-combobox>
-                                            </template> 
-                                        </template>
-                                    </div>
-                                </template>
-                        </div>
-                    </div>
-
-                </div>
             </template>
         
         </div>
