@@ -15,13 +15,13 @@ export default class LwcTenantRequest extends LightningElement {
     @api objectApiName = "TenantRequest__c";
     //@api var_TenantRequest__c;  /* TenantRequest__c record variable from screen flow*/
     @api var_PreviousRecord;
-
+    @track uniqueKey = 0;
 
     fieldsSettingTypeLeft = [];
     fieldsBasicInfoLeft = [];
     fieldsBasicInfoRight = [];
     fields = [];
-    difference = [];
+    @track difference = [];
     
 
 
@@ -29,9 +29,8 @@ export default class LwcTenantRequest extends LightningElement {
 
     connectedCallback() {
         console.log('record Id from layout:', this.recordId);
-        console.log('Flow record:', JSON.stringify(this.var_TenantRequest__c));
-        console.log('Flow record object:', this.var_TenantRequest__c);
-        console.log('Flow record object:', this.var_PreviousRecord);
+        console.log('connectedCallback:this.var_TenantRequest__c', JSON.stringify(this.var_TenantRequest__c));
+        console.log('connectedCallback this.var_PreviousRecord:', this.var_PreviousRecord);
 }
 
     //check if this LWC is in record page or it is in Flow Screen
@@ -52,6 +51,7 @@ export default class LwcTenantRequest extends LightningElement {
         // only update if fields already exist, refresh lwc
         if(this.fields.length){
             this.refreshUI();
+            this.uniqueKey++; //forces LWC to rebuild DOM.
         }
     }
     get var_TenantRequest__c(){
@@ -69,6 +69,7 @@ export default class LwcTenantRequest extends LightningElement {
     }
 
     updateFieldsValues() {
+        console.log('UupdateFieldsValues()');
     // loop through sections and left/right fields
         this.fields = this.fields.map(section => {
             return {
@@ -87,10 +88,18 @@ export default class LwcTenantRequest extends LightningElement {
     }
  
     calculateDifference(){
+        console.log('calculateDifference()');
         const diffs = [];
+        console.log('calculateDifference this._tenantRequest', this._tenantRequest);
+        console.log('calculateDifference this.var_PreviousRecord', this.var_PreviousRecord);
+
+
         if( !this._tenantRequest || !this.var_PreviousRecord) return;
 
         for(let apiName of Object.keys(this._tenantRequest)){
+            console.log('PreviousRecord keys:', Object.keys(this.var_PreviousRecord));
+            console.log('TenantRequest keys:', Object.keys(this._tenantRequest));
+
             const oldVal = this.var_PreviousRecord[apiName];
             const newVal = this._tenantRequest[apiName];
             if (oldVal !== newVal) {
@@ -125,26 +134,6 @@ export default class LwcTenantRequest extends LightningElement {
         return apiName;
     }
 
-    /* get difference(){
-        const changeDiff = [];
-        if(!this.var_PreviousRecord || !this.var_TenantRequest__c){
-            return changeDiff;
-        }
-
-        for(let apiName of Object.keys(this.var_TenantRequest__c)){
-            const oldValue = this.var_PreviousRecord[apiName];
-            const newValue = this.var_TenantRequest__c[apiName];
-
-            if(oldValue !== newValue){
-                //assign label
-                const label = getFieldLabe(apiName);
-                //return object array of diff
-                changeDiff.puch({apiName: apiName, label:label, oldValue : oldValue, newValue : newValue});
-            }
-        }
-        return changeDiff;
-
-    } */
 
 
     //check if the field is boolean or not
