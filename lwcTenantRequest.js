@@ -13,8 +13,6 @@ export default class LwcTenantRequest extends LightningElement {
 
     @api recordId; 
     @api objectApiName = "TenantRequest__c";
-    //@api var_TenantRequest__c;  /* TenantRequest__c record variable from screen flow*/
-    @api var_PreviousRecord;
     @track uniqueKey = 0;
 
     fieldsSettingTypeLeft = [];
@@ -22,7 +20,8 @@ export default class LwcTenantRequest extends LightningElement {
     fieldsBasicInfoRight = [];
     fields = [];
     @track difference = [];
-    
+    _previousRecord;
+    _tenantRequest;
 
 
     selectedValue = '';
@@ -31,6 +30,7 @@ export default class LwcTenantRequest extends LightningElement {
         console.log('record Id from layout:', this.recordId);
         console.log('connectedCallback:this.var_TenantRequest__c', JSON.stringify(this.var_TenantRequest__c));
         console.log('connectedCallback this.var_PreviousRecord:', this.var_PreviousRecord);
+
 }
 
     //check if this LWC is in record page or it is in Flow Screen
@@ -59,7 +59,26 @@ export default class LwcTenantRequest extends LightningElement {
         return this._tenantRequest;
     }
 
-    _tenantRequest;
+    
+
+    @api
+    set var_PreviousRecord(value){
+        this._previousRecord = { ...value };
+        console.log('set var_PreviousRecord:', this._previousRecord);
+
+        // only update if fields already exist, refresh lwc
+        if(this.fields.length){
+            this.refreshUI();
+            this.uniqueKey++; //forces LWC to rebuild DOM.
+        }
+    }
+    get var_PreviousRecord(){
+        console.log('get var_PreviousRecord');
+        return this._previousRecord;
+    }
+
+    
+
 
     refreshUI(){
         console.log('Updated var_TenantRequest__c from Flow:', this._tenantRequest);
@@ -86,7 +105,23 @@ export default class LwcTenantRequest extends LightningElement {
         });
         console.log('updateFieldsValues() this.fields', this.fields);
     }
+
+    //getter property to return array of objects of product fields
+    get allProductFields(){
+        return this.fields.flatMap(section =>[
+            ...section.fieldsLeft,
+            ...section.fieldsRight
+        ]);
+    }
+        /* [  example of allProductFields
+        { apiName: "CanUseLXI__c", label: "利用する", type: "checkbox", value: true },
+        { apiName: "Invoice_c", label: "請求書仕分け", type: "checkbox", value: true },
+        { apiName: "IsArManagement__c", label: "入金消込", type: "checkbox", value: true },
+        { apiName: "IsWfCardReportFormula__c", label: "カード仕分け", type: "text", value: true },
+        { apiName: "ExpenseLimit__c", label: "経費上限", type: "number", value: true }
+        ] */
  
+
     calculateDifference(){
         console.log('calculateDifference()');
         const diffs = [];
@@ -96,17 +131,20 @@ export default class LwcTenantRequest extends LightningElement {
 
         if( !this._tenantRequest || !this.var_PreviousRecord) return;
 
-        for(let apiName of Object.keys(this._tenantRequest)){
+        for(let productField of this.allProductFields ){
+            //  this.allProductFields, calcualte diffs only for product fields, not section not other part of TenantRequest values
             console.log('PreviousRecord keys:', Object.keys(this.var_PreviousRecord));
             console.log('TenantRequest keys:', Object.keys(this._tenantRequest));
+            console.log('productField', productField);
 
-            const oldVal = this.var_PreviousRecord[apiName];
-            const newVal = this._tenantRequest[apiName];
+            const oldVal = this.var_PreviousRecord[productField.apiName];
+            const newVal = this._tenantRequest[productField.apiName];
+
             if (oldVal !== newVal) {
-                const label = this.getFieldLabel(apiName);
+                
                 diffs.push({ 
-                    apiName, 
-                    label, 
+                    apiName: productField.apiName, 
+                    label: productField.label,
                     oldValue: oldVal, 
                     newValue: newVal 
                 });
@@ -114,26 +152,34 @@ export default class LwcTenantRequest extends LightningElement {
         }
 
         this.difference = diffs;
+        /*　this.difference
+        [{apiName: aaa_c,label: label1,oldValue: oldVal1, newValue: newVal1 },
+        {apiName: bbb_c,label: label2,oldValue: oldVal2, newValue: newVal2 }
+        ] */
         console.log('calculateDifference() this.difference', this.difference);
+
+        //call method to save chagelogs to tenantrequest record variable
+        this.saveChangeLogs()
+
     }
 
+    saveChangeLogs(){
+        if(this.difference && this.difference.length > 0){
+             // HTML string with <br> for line breaks
+            const changeLogHtml = this.difference.map(d => {return `${d.label}が ${d.oldValue} から ${d.newValue} に変更されました`;}).join('<br>');
 
+            //this._tenantRequest.ChangeDetails_Product__c = hangeLogHtml;
+            this._tenantRequest.ChangeDetails_Product__c = `<p>${changeLogHtml}</p>`;
+            //this.var_TenantRequest__c = {...this._tenantRequest};
 
-
-    //method to get label from meta data
-    getFieldLabel(apiName){
-        for(let section of this.fields){
-            for(let field of [...section.fieldsLeft, ... section.fieldsRight]){
-                if(field.apiName === apiName){
-                    return field.label;
-                }
-                
-            }
+            console.log('saveChangeLogs', this._tenantRequest.ChangeDetails_Product__c);
         }
-        // fallback to apiName if not found
-        return apiName;
     }
 
+
+
+
+    
 
 
     //check if the field is boolean or not
@@ -250,12 +296,11 @@ export default class LwcTenantRequest extends LightningElement {
         const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value ;
         let tempTenantRequest = {...this.var_TenantRequest__c};
 
-         // Update record variable (_tenantRequest)
+         // Urecord private variable (_tenantRequest)
         this._tenantRequest = {
             ...this._tenantRequest,
             [fieldName]: newValue
         };
-        
 
         //Update value property for LWC rendering
         this.fields = this.fields.map(section => {
