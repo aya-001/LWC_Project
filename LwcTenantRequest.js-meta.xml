@@ -12,7 +12,8 @@
 	<targetConfigs>
 	<targetConfig targets="lightning__FlowScreen">
             <property name="var_TenantRequest__c" type="@salesforce/schema/TenantRequest__c" label="Tenant Request Record"/> 
-            <!-- <property name="var_UpdateRecord" type="@salesforce/schema/TenantRequest__c" label="Updated Record" role="outputOnly"/> -->
+			<!-- <property name="var_UpdateRecord" type="@salesforce/schema/TenantRequest__c" label="Update Record"/>  -->
+            <property name="var_PreviousRecord" type="@salesforce/schema/TenantRequest__c" label="Previous Record"/> 
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
