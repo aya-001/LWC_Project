@@ -61,13 +61,14 @@ public class TenantRequestFieldService {
 		List<TenantRequestSections__mdt> sections = [SELECT DeveloperName, Label__c, SortOrder__c  FROM TenantRequestSections__mdt ORDER BY SortOrder__c];
 
 		//Query fields with Product Sction
-		List<TenantRequestFields__mdt> fields = [SELECT DeveloperName,FieldName__c, ProductSection__r.DeveloperName, Column__c, SortOrder__c FROM TenantRequestFields__mdt ORDER BY ProductSection__r.SortOrder__c, SortOrder__c];
+		List<TenantRequestFields__mdt> fields = [SELECT DeveloperName,FieldName__c, ProductSection__r.DeveloperName, Column__c, SortOrder__c FROM TenantRequestFields__mdt ORDER BY SortOrder__c];
 
 		//Grout fields by Product Section
 		Map<String, List<TenantRequestFields__mdt>> fieldsGroupMap = new Map<String, List<TenantRequestFields__mdt>>();
 		for(TenantRequestFields__mdt f : fields){
 			//define section name key to map
 			String sectionKey = f.ProductSection__r.DeveloperName;
+			System.debug('f.ProductSection__r.DeveloperName: ' + f.ProductSection__r.DeveloperName);
 
 			//if section key name does not exists in the Map, add it 
 			if(!fieldsGroupMap.containsKey(sectionKey)){
@@ -96,6 +97,8 @@ public class TenantRequestFieldService {
 
 			//check actual existing fields data to get datatype, option values
 			if(fieldsGroupMap.containsKey(sec.DeveloperName)){
+				System.debug('sec.DeveloperName): ' + sec.DeveloperName);
+
 				for(TenantRequestFields__mdt f : fieldsGroupMap.get(sec.DeveloperName)){
 					//check if fields API name exists in query fields from TenantRequest__c object
 					if(allExistFields.containsKey(f.FieldName__c)){
@@ -151,50 +154,6 @@ public class TenantRequestFieldService {
 
 
 
-	private static List<Map<String, Object>> getFieldsForSection(String section){
-		//initialize list
-		List<Map<String, Object>> result = new List<Map<String, Object>>();
-
-		//check if fields exist and get the field reference with Schema.SObjectField
-		Map<String, Schema.SObjectField> allFields = Schema.SObjectType.TenantRequest__c.fields.getMap();
-		
-		//retrieve meta data fields
-		List<TenantRequestFields__mdt> fields = [SELECT FieldName__c FROM TenantRequestFields__mdt WHERE SectionName__c =:section ORDER BY SortOrder__c ASC];
-
-		for(TenantRequestFields__mdt meta : fields){
-			if(allFields.containsKey(meta.FieldName__c)){
-				//Get field describe(details) with Schema.DescribeResult
-				Schema.DescribeFieldResult describe = allFields.get(meta.FieldName__c).getDescribe();
-				
-				//check if the field is formula
-				if(describe.isCalculated() && !describe.isUpdateable() ){
-					result.add(new Map<String, Object>{'apiName' => meta.fieldName__c, 'label' => describe.getLabel(), 'type' => enumToDataType(describe.getType()), 'isCheckboxField' => enumToDataType(describe.getType()) == 'checkbox', 'isPicklistField' => enumToDataType(describe.getType()) == 'picklist', 'options' => null,'isFormulaField' => true});
-				}else{ 
-				//other than formula		
-					/* checkbox */
-					if(enumToDataType(describe.getType()) == 'checkbox'){
-						result.add(new Map<String, Object>{'apiName' => meta.fieldName__c, 'label' => describe.getLabel(), 'type' => enumToDataType(describe.getType()), 'isCheckboxField' => true, 'isPicklistField' => false, 'options' => null,'isFormulaField' => false});
-					}else if(enumToDataType(describe.getType()) == 'picklist'){
-					/* picklist */
-						/* List<Schema.PicklistEntry> P = describe.getPicklistValues(); */
-						//store option values in List
-						List<Map<String, String>> options = new List<Map<String, String>>();
-						for(Schema.PicklistEntry entry : describe.getPicklistValues()){
-							options.add(new Map<String, String>{'label' => entry.getLabel(), 'value' => entry.getValue()});
-						}
-						result.add(new Map<String, Object>{'apiName' => meta.fieldName__c, 'label' => describe.getLabel(), 'type' => enumToDataType(describe.getType()), 'isCheckboxField' => false, 'isPicklistField' => true, 'options' => options,'isFormulaField' => false});
-						
-					}else{
-						/* others */
-						result.add(new Map<String, Object>{'apiName' => meta.fieldName__c, 'label' => describe.getLabel(), 'type' => enumToDataType(describe.getType()), 'isCheckboxField' => false, 'isPicklistField' => false, 'options' => null,'isFormulaField' => false});
-					}
-				}
-			}
-		}
-
-		return result;
-	}
-
 	/* Helper method to convert enum to data type */
 	private static String enumToDataType(Schema.DisplayType dt) {
     switch on dt {
@@ -214,115 +173,6 @@ public class TenantRequestFieldService {
         when else         { return 'text'; }    // default fallback
     }
 }
-
-
-
-
-	/* InvoiceLeft */
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantInvoiceLeft(){
-		return getFieldsForSection('InvoiceLeft');
-	}
-
-	/* InvoiceRight */
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantInvoiceRight(){
-		return getFieldsForSection('InvoiceRight');
-		
-	}
-
-	/*  WFRight */
-	 @AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantWFRight(){
-		return getFieldsForSection('WFRight');
-
-	} 
-
-	/*  WFLeft */
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantWFLeft(){
-		return getFieldsForSection('WFLeft');
-	}
-
-	/* BoxLeft */
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantBoxLeft(){
-		return getFieldsForSection('BoxLeft');
-	}
-	
-
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantBoxRight(){
-		return getFieldsForSection('BoxRight');
-	}
-
-	/* Caed */
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantCardLeft(){
-		return getFieldsForSection('CardLeft');
-	}
-
-	/* Docissue */
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantDocissueLeft(){
-		return getFieldsForSection('DocissueLeft');
-	}
-
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantDocissueRight(){
-		return getFieldsForSection('DocissueRight');
-	}
-
-	/* API */
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantAPILeft(){
-		return getFieldsForSection('APILeft');
-	}
-
-
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantAPIRight(){
-		return getFieldsForSection('APIRight');
-	}
-
-	/* Attendance */
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantAttendanceLeft(){
-		return getFieldsForSection('AttendanceLeft');
-	}
-
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantAttendanceRight(){
-		return getFieldsForSection('AttendanceRight');
-	}
-
-	/* BpoDoc */
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantBpoDocLeft(){
-		return getFieldsForSection('BpoDocLeft');
-	}
-
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantBpoDocRight(){
-		return getFieldsForSection('BpoDocRight');
-	}
-
-
-	/* Option */
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantOptionLeft(){
-		return getFieldsForSection('OptionLeft');
-	}
-
-
-	@AuraEnabled(cacheable=true)
-	public static List<Map<String, Object>> getTenantOptionRight(){
-		return getFieldsForSection('Optionright');
-	}
-
-
-
-
 
 
 
