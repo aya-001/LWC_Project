@@ -1,5 +1,5 @@
 <template>
-    <lightning-card title="">
+    <lightning-card title="" key={uniqueKey}>
         <div class="slds-p-around_small">
             <!-- Record page -->
             <template if:true={isRecordPage}>
@@ -11,7 +11,7 @@
                             onsuccess={handleSuccess}
                             onerror={handleError}
                 >               
-                    <div class="slds-section slds-is-open slds-p_small">
+                    <!-- <div class="slds-section slds-is-open slds-p_small">
                         <h3 class="slds-section__title">
                             <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
                             <lightning-icon
@@ -25,9 +25,6 @@
                         </h3>
 
                         <div class="slds-grid slds-wrap">
-                            <!-- LXCode  label="設定種別" -->
-                            <!-- Contact  Lookup  label="テナント"   -->
-                            <!-- Sub_Contact Lookup  label="フェーズ"   -->
                             <template for:each={fieldsSettingTypeLeft} for:item="fieldSL">
                                 <div key={fieldSL} class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
                                     <lightning-input-field field-name={fieldSL}></lightning-input-field>
@@ -35,9 +32,9 @@
                             </template>
                         </div>
 
-                    </div>
+                    </div> -->
 
-                    <div class="slds-section slds-is-open slds-p_small">
+                    <!-- <div class="slds-section slds-is-open slds-p_small">
                         <h3 class="slds-section__title">
                             <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
                             <lightning-icon
@@ -51,42 +48,33 @@
                         </h3>
                         
                             <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                                <!-- left side of grid -->
-                                <div class="slds-col slds-size_1-of-2">
-                                    <!-- wrap colums in right side -->
+                                --> <!-- left side of grid -->
+                                <!-- <div class="slds-col slds-size_1-of-2">
+                                    
                                     <div class="slds-grid slds-wrap">
-                                        <!-- LXCode  label="テナントコード" -->
-                                        <!-- Contact  Lookup  label="コンタクト ※カードテナントの場合 招待されます"   -->
-                                        <!-- Sub_Contact Lookup  label="サブコンタクト"   -->
                                         <template for:each={fieldsBasicInfoLeft} for:item="fieldBL">
                                             <div key={fieldBL} class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
                                                 <lightning-input-field field-name={fieldBL}></lightning-input-field>
                                             </div>
                                         </template>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- right side of grid -->
-                                <div class="slds-col slds-size_1-of-2">
-                                    <!-- wrap colums in right side -->
+                                <!-- <div class="slds-col slds-size_1-of-2">
+                                    
                                     <div class="slds-grid slds-wrap">
                                         <template for:each={fieldsBasicInfoRight} for:item="fieldBR">
-                                            <div key={fieldBR} class="slds-col slds-size_1-of-1 slds-m-bottom_medium">
-                                                <!-- LXCode  label="所有者" -->
-                                                <!-- LXCode  label="会社名" -->
-                                                <!-- LXCode  label="契約主ID -->    
+                                            <div key={fieldBR} class="slds-col slds-size_1-of-1 slds-m-bottom_medium"> 
                                                 <lightning-input-field field-name={fieldBR}></lightning-input-field>
                                             </div>
                                         </template>
                                     </div>
                                 </div>
                             </div>
-                        
-                        
-                    
 
-                    </div>
+                    </div> -->
 
-                    <div class="slds-section slds-is-open slds-p_small">
+                    <!-- <div class="slds-section slds-is-open slds-p_small">
                         <h3 class="slds-section__title">
                             <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
                             <lightning-icon
@@ -99,10 +87,10 @@
                             </button>
                         </h3>
 
-                    </div>
+                    </div> -->
 
 
-                    <div class="slds-section slds-is-open slds-p_small">
+                    <!-- <div class="slds-section slds-is-open slds-p_small">
                         <h3 class="slds-section__title">
                             <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
                             <lightning-icon
@@ -117,7 +105,6 @@
 
                         
                             <div class="">
-                                <!-- トライアル / 本番区分 -->
                                 <lightning-combobox
                                     label="トライアル / 本番区分"
                                     value={selectedValue}
@@ -127,374 +114,51 @@
                                 ></lightning-combobox>
                             </div>
                     
-                    </div>
+                    </div> -->
                 
-
-
-                    <!-- バクラク債権・債務管理 -->
+                    <!-- Lightning Record Layout　債権債務　～ 共通管理オプション -->
                     <div class="slds-section slds-is-open slds-p_small">
-                        <h3 class="slds-section__title">
-                            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                            <lightning-icon
-                                icon-name="utility:switch"
-                                alternative-text="Switch"
-                                size="xx-small"
-                                class="slas-button__icon slds-button__icon_left"    
-                            ></lightning-icon>
-                            <span class="slds-truncate" title="Section Title">バクラク債権・債務管理</span>
-                            </button>
-                        </h3>
+                        <template for:each={fields} for:item="field">
+                            <div key={field.sectionOrder}>
+                                <!-- Section Title  -->
+                                <h3 class="slds-section__title">
+                                    <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
+                                    <lightning-icon
+                                        icon-name="utility:switch"
+                                        alternative-text="Switch"
+                                        size="xx-small"
+                                        class="slas-button__icon slds-button__icon_left"    
+                                    ></lightning-icon>
+                                    <span class="slds-truncate" title="Section Title">{field.label}</span>
+                                    </button>
+                                </h3>
 
-                        
-                        
-                        <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                                <!-- left side of grid -->
-                                <div class="slds-col slds-size_1-of-2">
-                                    <!-- loop fields from custom metadata -->
-                                    <template for:each={fields} for:item="field">
-                                        <div key={field}>
-                                            <template for:each={field.fieldsLeft} for:item="left">
-                                                <div key={left.apiName}>
-                                                    <lightning-input-field field-name={left.apiName}></lightning-input-field>
-                                                </div>
-                                            </template>
-                                        </div>
-                                    </template>
-                                </div>
-                                <!-- right side of grid -->
-                                <div class="slds-col slds-size_1-of-2 slds-p-top_small">
+                                <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
+                                    <!-- left side of grid -->
+                                    <div class="slds-col slds-size_1-of-2">
                                         <!-- loop fields from custom metadata -->
-                                        <template for:each={fields} for:item="field">
-                                        <!-- wrap colums in right side -->
-                                            <div key={field} class="slds-grid slds-wrap">
-                                                <template for:each={field.fieldsRight} for:item="right">
-                                                    <div key={right.apiName}>
-                                                        <lightning-input-field field-name={right.apiName}></lightning-input-field>
-                                                    </div>
-                                                </template>
+                                        <template for:each={field.fieldsLeft} for:item="leftField">
+                                            <div key={leftField.apiName}>
+                                                <lightning-input-field field-name={leftField.apiName}></lightning-input-field>
                                             </div>
                                         </template>
+                                    </div>
+                                    <!-- right side of grid -->
+                                    <div class="slds-col slds-size_1-of-2 slds-p-top_small">
+                                            <!-- loop fields from custom metadata -->
+                                            <!-- wrap colums in right side -->
+                                        <template for:each={field.fieldsRight} for:item="rightField">
+                                            <div key={rightField.apiName}>
+                                                <lightning-input-field field-name={rightField.apiName}></lightning-input-field>
+                                            </div>
+                                        </template>
+                                    </div>
                                 </div>
-                        </div>
+
+                            </div>
+                        </template>  
                     </div>
-                        
-                    <!-- バクラク申請・経費精算 -->
-                    <div class="slds-section slds-is-open slds-p_small">
-                        <h3 class="slds-section__title">
-                            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                            <lightning-icon
-                                icon-name="utility:switch"
-                                alternative-text="Switch"
-                                size="xx-small"
-                                class="slas-button__icon slds-button__icon_left"    
-                            ></lightning-icon>
-                            <span class="slds-truncate" title="Section Title">バクラク申請・経費精算</span>
-                            </button>
-                        </h3>
-
-                        
-
-                        <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                            <!-- left side of grid -->
-                            <div class="slds-col slds-size_1-of-2">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldWFLeft} for:item="fieldWFL">
-                                    <div key={fieldWFL.apiName} class="">
-                                        <lightning-input-field field-name={fieldWFL.apiName}></lightning-input-field>
-                                    </div>
-                                </template>
-                            </div>
-                            <!-- right side of grid -->
-                            <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                    <!-- loop fields from custom metadata -->
-                                    <template for:each={fieldWFRight} for:item="fieldWFR">
-                                    <!-- wrap colums in right side -->
-                                        <div key={fieldWFR.apiName} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldWFR.apiName}></lightning-input-field>
-                                        </div>
-                                    </template>
-                            </div>
-                        </div>
-                
-                    </div>
-
-
-                    <!-- バクラク電子帳簿保存 -->
-                    <div class="slds-section slds-is-open slds-p_small">
-                        <h3 class="slds-section__title">
-                            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                            <lightning-icon
-                                icon-name="utility:switch"
-                                alternative-text="Switch"
-                                size="xx-small"
-                                class="slas-button__icon slds-button__icon_left"    
-                            ></lightning-icon>
-                            <span class="slds-truncate" title="Section Title">バクラク電子帳簿保存</span>
-                            </button>
-                        </h3>
-
-                        
-
-                        <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                            <!-- left side of grid -->
-                            <div class="slds-col slds-size_1-of-2">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldBoxLeft} for:item="fieldBXL">
-                                    <div key={fieldBXL.apiName}>
-                                        <lightning-input-field field-name={fieldBXL.apiName}></lightning-input-field>
-                                    </div>
-                                </template>
-                            </div>
-                            <!-- right side of grid -->
-                            <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                    <!-- loop fields from custom metadata -->
-                                    <template for:each={fieldBoxRight} for:item="fieldBXR">
-                                    <!-- wrap colums in right side -->
-                                        <div key={fieldBXR.apiName} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldBXR.apiName}></lightning-input-field>
-                                        </div>
-                                    </template>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- バクラクビジネスカード -->
-                    <div class="slds-section slds-is-open slds-p_small">
-                        <h3 class="slds-section__title">
-                            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                            <lightning-icon
-                                icon-name="utility:switch"
-                                alternative-text="Switch"
-                                size="xx-small"
-                                class="slas-button__icon slds-button__icon_left"    
-                            ></lightning-icon>
-                            <span class="slds-truncate" title="Section Title">バクラクビジネスカード</span>
-                            </button>
-                        </h3>
-
-                        
-
-                        <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                            <!-- left side of grid -->
-                            <div class="slds-col slds-size_1-of-2">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldCardLeft} for:item="fieldCDL">
-                                    <div key={fieldCDL.apiName}>
-                                        <lightning-input-field field-name={fieldCDL.apiName}></lightning-input-field>
-                                    </div>
-                                </template>
-                            </div>
-                            <!-- right side of grid -->
-                            <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- バクラク請求書発行 -->
-                    <div class="slds-section slds-is-open slds-p_small">
-                        <h3 class="slds-section__title">
-                            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                            <lightning-icon
-                                icon-name="utility:switch"
-                                alternative-text="Switch"
-                                size="xx-small"
-                                class="slas-button__icon slds-button__icon_left"    
-                            ></lightning-icon>
-                            <span class="slds-truncate" title="Section Title">バクラク請求書発行</span>
-                            </button>
-                        </h3>
-
-                    
-
-                        <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                            <!-- left side of grid -->
-                            <div class="slds-col slds-size_1-of-2">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldDocissueLeft} for:item="fieldDIL">
-                                <div key={fieldDIL.apiName}>
-                                    <lightning-input-field field-name={fieldDIL.apiName}></lightning-input-field>
-                                </div>
-                            </template>
-                            </div>
-                            <!-- right side of grid -->
-                            <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                    <!-- loop fields from custom metadata -->
-                                    <template for:each={fieldDocissueRight} for:item="fieldDIR">
-                                    <!-- wrap colums in right side -->
-                                        <div key={fieldDIR.apiName} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldDIR.apiName}></lightning-input-field>
-                                        </div>
-                                    </template>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- API利用 -->
-                    <div class="slds-section slds-is-open slds-p_small">
-                        <h3 class="slds-section__title">
-                            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                            <lightning-icon
-                                icon-name="utility:switch"
-                                alternative-text="Switch"
-                                size="xx-small"
-                                class="slas-button__icon slds-button__icon_left"    
-                            ></lightning-icon>
-                            <span class="slds-truncate" title="Section Title">API利用</span>
-                            </button>
-                        </h3>
-
-                        
-
-                        <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                            <!-- left side of grid -->
-                            <div class="slds-col slds-size_1-of-2">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldAPILeftt} for:item="fieldAPIL">
-                                    <div key={fieldAPIL.apiName}>
-                                        <lightning-input-field field-name={fieldAPIL.apiName}></lightning-input-field>
-                                    </div>
-                                </template>
-                            </div>
-                            <!-- right side of grid -->
-                            <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                    <!-- loop fields from custom metadata -->
-                                    <template for:each={fieldAPIRight} for:item="fieldAPIR">
-                                    <!-- wrap colums in right side -->
-                                        <div key={fieldAPIR.apiName} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldAPIR.apiName}></lightning-input-field>
-                                        </div>
-                                    </template>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- 勤怠-->
-                    <div class="slds-section slds-is-open slds-p_small">
-                        <h3 class="slds-section__title">
-                            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                            <lightning-icon
-                                icon-name="utility:switch"
-                                alternative-text="Switch"
-                                size="xx-small"
-                                class="slas-button__icon slds-button__icon_left"    
-                            ></lightning-icon>
-                            <span class="slds-truncate" title="Section Title">勤怠</span>
-                            </button>
-                        </h3>
-
-                        
-
-                        <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                            <!-- left side of grid -->
-                            <div class="slds-col slds-size_1-of-2">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldAttendanceLeft} for:item="fieldADL">
-                                    <div key={fieldADL.apiName}>
-                                        <lightning-input-field field-name={fieldADL.apiName}></lightning-input-field>
-                                    </div>
-                                </template>
-                            </div>
-                            <!-- right side of grid -->
-                            <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                    <!-- loop fields from custom metadata -->
-                                    <template for:each={fieldAttendanceRight} for:item="fieldADR">
-                                    <!-- wrap colums in right side -->
-                                        <div key={fieldADRR.apiName} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldADR.apiName}></lightning-input-field>
-                                        </div>
-                                    </template>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <!-- 受領代行 -->
-                    <div class="slds-section slds-is-open slds-p_small">
-                        <h3 class="slds-section__title">
-                            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                            <lightning-icon
-                                icon-name="utility:switch"
-                                alternative-text="Switch"
-                                size="xx-small"
-                                class="slas-button__icon slds-button__icon_left"    
-                            ></lightning-icon>
-                            <span class="slds-truncate" title="Section Title">受領代行</span>
-                            </button>
-                        </h3>
-
-                    
-
-                        <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                            <!-- left side of grid -->
-                            <div class="slds-col slds-size_1-of-2">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldBpoDocLeft} for:item="fieldBpoDocL">
-                                    <div key={fieldBpoDocL.apiName}>
-                                        <lightning-input-field field-name={fieldBpoDocL.apiName}></lightning-input-field>
-                                    </div>
-                                </template>
-                            </div>
-                            <!-- right side of grid -->
-                            <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                    <!-- loop fields from custom metadata -->
-                                    <template for:each={fieldBpoDocRight} for:item="fieldBpoDocR">
-                                    <!-- wrap colums in right side -->
-                                        <div key={fieldBpoDocR.apiName} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldBpoDocR.apiName}></lightning-input-field>
-                                        </div>
-                                    </template>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    
-                    <!-- 共通管理オプション -->
-                    <div class="slds-section slds-is-open slds-p_small">
-                        <h3 class="slds-section__title">
-                            <button aria-controls="expando-unique-id" aria-expanded="true" class="slds-button slds-section__title-action">
-                            <lightning-icon
-                                icon-name="utility:switch"
-                                alternative-text="Switch"
-                                size="xx-small"
-                                class="slas-button__icon slds-button__icon_left"    
-                            ></lightning-icon>
-                            <span class="slds-truncate" title="Section Title">共通管理オプション</span>
-                            </button>
-                        </h3>
-
-                        
-
-                        <div class="slds-grid slds-gutters slds-p-horizontal_medium slds-p-top_small">
-                            <!-- left side of grid -->
-                            <div class="slds-col slds-size_1-of-2">
-                                <!-- loop fields from custom metadata -->
-                                <template for:each={fieldOptionLeft} for:item="fieldOPL">
-                                    <div key={fieldOPL.apiName}>
-                                        <lightning-input-field field-name={fieldOPL.apiName}></lightning-input-field>
-                                    </div>
-                                </template>
-                            </div>
-                            <!-- right side of grid -->
-                            <div class="slds-col slds-size_1-of-2 slds-p-top_small">
-                                    <!-- loop fields from custom metadata -->
-                                    <template for:each={fieldOptionRight} for:item="fieldOPR">
-                                    <!-- wrap colums in right side -->
-                                        <div key={fieldOPR.apiName} class="slds-grid slds-wrap">
-                                            <lightning-input-field field-name={fieldOPR.apiName}></lightning-input-field>
-                                        </div>
-                                    </template>
-                            </div>
-                        </div>
-
-                    </div>
-                    
-
-                        
+                                         
                     <div>
                         <!-- Save -->
                         <lightning-button 
@@ -512,11 +176,11 @@
                         ></lightning-button>
                     </div>
                         
-                    
-                        
                 </lightning-record-edit-form>
             </template>
 
+
+            <!-- 画面フロー -->
             <!-- change log -->
             <template if:true={difference.length}>
                 <!-- Section Title  -->
@@ -532,7 +196,7 @@
                     </button>
                 </h3>
 
-                <ul class="slds-p-left_medium">
+                <ul class="slds-p-around_medium">
                     <template for:each={difference} for:item="diff">
                         <li key={diff.apiName}>
                             <span>{diff.label}が {diff.oldValue} から {diff.newValue} に変更されました</span>
@@ -550,7 +214,7 @@
             <!-- Screen Flow -->
             <template if:false={isRecordPage}>
 
-                <!-- バクラク債権・債務管理 -->
+                <!-- バクラク債権・債務管理 　～ 共通管理オプション-->
                 <div class="slds-section slds-is-open">
                     <template for:each={fields} for:item="field"><!-- slds-p-vertical_small -->
                         <div key={field.sectionOrder}>
